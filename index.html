@@ -4,131 +4,141 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Burak Şanlılar</title>
-  <meta name="description" content="Burak Şanlılar, bilgisayar mühendisi. Cihazdan buluta uçtan uca yazılım: backend, IoT, web ve mobil.">
+  <meta name="description" content="Burak Şanlılar, bilgisayar mühendisi. Cihazdan buluta uçtan uca yazılım: IoT, backend, makine öğrenmesi.">
   <meta property="og:title" content="Burak Şanlılar">
   <meta property="og:description" content="Cihazdan buluta, uçtan uca yazılım.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,400..700&display=swap" rel="stylesheet">
   <style>
-/* Hallmark · shape: Letter (draw e84911) · genre: modern-minimal · theme: Blueprint (deal 1/3, seed portfolio-computer-engineer-who-3387·cce16d0e·2026-10-28·r0) · redesign: full · job: hire
- * hero: Index · nav: edge-aligned, the wordmark and three anchors (swapped from search-led: nothing to search) · footer: letter close (swapped from index columns: no sitemap) · imagery: none, the system drawn · signature: AgriFlow's real architecture drawn as a blueprint · blueprint: cyanotype
- * axes: mid/geometric-sans/neutral · posture: drenched · contrast: pass · fold: pass · v2.0.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V5 · weakest: P, a portfolio argues little; led with the real register of work and the real system instead of claims */
-/* Hallmark · dropped the network canvas, the scroll reveal, the spotlight cards and the tech marquee · the blueprint sheet keeps still; the marquee's names moved into the capability rows */
-/* Hallmark · waive 49b · real phrases that cannot shorten, two lines at most · the e-mail address and the register's project names wrap only at 320px */
-/* Hallmark · dropped net · the hero canvas it held is gone, the blueprint sheet keeps still */
+/* Hallmark · shape: Session (by request) · genre: atmospheric · theme: Terminal (deal by request) · redesign: full · job: hire
+ * hero: Split, the head on the left, a live session on the right · nav: edge-aligned, the prompt wordmark and three anchors · footer: a single exit line · imagery: none, the work typed as sessions and a + - | diagram · signature: a shell session that types out who I am and lists the repos
+ * axes: dark/mono/chromatic-green · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V5 · weakest: P, a portfolio argues little; the real repos, their real numbers and a permission-denied listing for private work carry it */
+/* Hallmark · dropped the Blueprint sheet, the register table and the capability rows · the request was a terminal; the register became man-page rows, the private work an ls -l listing */
+/* Hallmark · waive 49b · real phrases that cannot shorten, two lines at most · sanlilarburak@gmail.com wraps to 2 lines only at 320px, the mail link stays whole above it */
 @import url("./tokens.css");
 @import url("./base.css");
 
-h1, h2 { text-transform: uppercase; line-height: 1.02; }
+body { font-stretch: var(--stretch-body); font-variant-numeric: tabular-nums; line-height: 1.65; }
+h1, h2, h3 { font-weight: var(--display-weight); font-stretch: var(--stretch-display); letter-spacing: var(--tracking-display); line-height: 1.12; overflow-wrap: break-word; min-width: 0; }
+h1 { font-size: var(--text-display-s); max-width: 12ch; }
+.hero h1 { font-size: clamp(2.5rem, 4.5vw + 0.5rem, 4.25rem); }
+h2 { font-size: var(--text-section); }
+a { color: var(--color-ink-2); text-decoration-style: dotted; text-underline-offset: 0.2em; }
+a:hover { color: var(--color-accent); }
 
 /* nav */
-.nav { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
-.nav .container { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); }
-.wordmark { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; text-decoration: none; white-space: nowrap; }
-.nav ul { display: flex; gap: var(--space-lg); list-style: none; margin: 0; padding: 0; font-size: var(--text-sm); font-weight: 500; }
+.nav { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.nav .container { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); }
+.wordmark { color: var(--color-ink); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.wordmark span { color: var(--color-accent); }
+.nav ul { display: flex; gap: var(--space-lg); list-style: none; margin: 0; padding: 0; font-size: var(--text-sm); }
 .nav ul a { text-decoration: none; white-space: nowrap; }
-.nav ul a:hover { text-decoration: underline; }
 
 /* controls */
-.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-rule); border-radius: 0; background: transparent; color: var(--color-ink); font: 500 var(--text-md)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
-.btn:hover { background: var(--color-paper-2); }
-.btn:active { transform: translateY(1px); }
-.btn--primary { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-accent-ink); }
-.btn--primary:hover { background: var(--color-ink-2); }
-
-/* hero: the register is the visual */
-.hero { padding-block: var(--space-2xl) var(--space-3xl); min-height: calc(100dvh - 64px); display: flex; align-items: center; }
-.hero .container { display: grid; gap: var(--space-xl); }
-.hero h1 { max-width: none; }
-.hero-row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-lg); }
-.hero .lead { color: var(--color-ink-2); }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-ink-2); border-radius: 0; background: transparent; color: var(--color-ink); font: 500 var(--text-sm)/1 var(--font-body); font-stretch: var(--stretch-body); white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color var(--dur-micro) steps(1), color var(--dur-micro) steps(1); }
+.btn:hover { background: var(--color-paper-3); color: var(--color-ink); }
+.btn:active { background: var(--color-accent-wash); }
+.btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn--primary:hover { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-accent-ink); }
 .ctas { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 
-.register { margin: 0; }
-.register table { width: 100%; border-collapse: collapse; border: var(--rule-hair) solid var(--color-rule); }
-.register th { text-align: left; font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); padding: var(--space-sm) var(--space-md); border-bottom: var(--rule-heavy) solid var(--color-rule); }
-.register td { padding: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule-2); border-left: var(--rule-hair) solid var(--color-rule-2); vertical-align: middle; }
-.register td:first-child { border-left: 0; width: 4.5rem; font-family: var(--font-outlier); font-weight: 500; color: var(--color-muted); }
-.register .name { font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); line-height: 1.2; }
-.register .name a { text-decoration: none; }
-.register .name a:hover { text-decoration: underline; }
-.register .name small { display: block; margin-top: var(--space-2xs); font: 400 var(--text-sm)/1.4 var(--font-body); color: var(--color-ink-2); }
-.register td:nth-child(3), .register td:nth-child(4) { color: var(--color-ink-2); }
-.register figcaption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
+.well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
+pre { margin: 0; font: inherit; }
 
-/* the case */
-.case { padding-block: var(--section-gap-s) var(--section-gap); background: var(--color-paper-2); border-block: var(--rule-hair) solid var(--color-rule-2); }
-.case .head { display: grid; gap: var(--space-md); margin-bottom: var(--space-2xl); }
-.case .lead { color: var(--color-ink-2); }
+/* hero */
+.hero { padding-block: var(--space-3xl); min-height: calc(100dvh - 60px); display: flex; align-items: center; }
+.hero .container { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--space-3xl); align-items: center; }
+.hero .copy { display: grid; gap: var(--space-lg); justify-items: start; }
+.hero .lead { font-size: var(--text-lead); color: var(--color-ink-2); max-width: 32ch; }
+.session { padding: var(--space-3xl) var(--space-2xl); font-size: var(--text-lg); line-height: 1.9; overflow-x: auto; }
+.session .cmd::before { content: "~ $ "; color: var(--color-muted); }
+.session .out { color: var(--color-ink-2); margin-bottom: var(--space-sm); }
+.session .dir { color: var(--color-accent); }
+.caret { display: inline-block; width: 0.6em; height: 1.1em; vertical-align: -0.2em; background: var(--color-accent); animation: blink 1s steps(1) 5; }
+@keyframes blink { 50% { opacity: 0; } }
+.js-typing .session .line { opacity: 0; }
+.js-typing .session .line.on { opacity: 1; }
 
-.fig { position: relative; margin: 0; border: var(--rule-hair) solid var(--color-rule); padding: var(--space-3xl) var(--space-2xl);
-       background-color: var(--color-paper-3);
-       background-image:
-         linear-gradient(var(--color-grid-2) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid-2) 1px, transparent 1px),
-         linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-       background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
-       background-position: var(--sheet-inset) var(--sheet-inset); }
-.fig::after { content: ""; position: absolute; inset: 5px; border: var(--rule-hair) solid var(--color-rule-2); pointer-events: none; }
-.sys { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: auto auto; column-gap: var(--space-2xl); row-gap: var(--space-2xl); list-style: none; margin: 0; padding: 0; }
-.node { position: relative; border: var(--rule-hair) solid var(--color-rule); background: var(--color-paper-3); padding: var(--space-md) var(--space-lg); }
-.node b { display: block; font-family: var(--font-display); font-weight: 600; font-size: var(--text-lg); line-height: 1.2; }
-.node span { display: block; margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--color-muted); }
-.n1 { grid-area: 1 / 1; } .n2 { grid-area: 1 / 2; } .n3 { grid-area: 1 / 3; } .n4 { grid-area: 1 / 4; } .n5 { grid-area: 2 / 2; } .n6 { grid-area: 2 / 3; } .n7 { grid-area: 2 / 4; }
-.to-r::after { content: ""; position: absolute; top: 50%; left: 100%; width: var(--space-2xl); height: var(--rule-hair); background: var(--color-rule); }
-.to-b::before { content: ""; position: absolute; top: 100%; left: 50%; width: var(--rule-hair); height: var(--space-2xl); background: var(--color-rule); }
-.fig + .ctas { margin-top: var(--space-xl); }
-.fig figcaption { margin-top: var(--space-2xl); font-size: var(--text-sm); color: var(--color-muted); max-width: 65ch; }
+/* figures as wc output */
+.figs { border-block: var(--rule-hair) solid var(--color-rule); }
+.figs .container { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fig { padding: var(--space-2xl) var(--space-lg); border-left: var(--rule-hair) solid var(--color-rule); }
+.fig:first-child { border-left: 0; padding-left: 0; }
+.fig b { display: block; font-weight: 400; font-stretch: var(--stretch-display); font-size: var(--text-display-s); line-height: 1; }
+.fig span { display: block; margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
 
-/* capabilities as rows */
-.caps { padding-block: var(--section-gap) var(--section-gap-s); }
-.caps .head { display: grid; gap: var(--space-md); margin-bottom: var(--space-2xl); }
-.caps .lead { color: var(--color-ink-2); }
-.rows { list-style: none; margin: 0; padding: 0; border-bottom: var(--rule-hair) solid var(--color-rule-2); }
-.rows li { display: grid; grid-template-columns: 5fr 7fr; gap: var(--gap-columns); padding-block: var(--space-xl); border-top: var(--rule-hair) solid var(--color-rule-2); }
-.rows h3 { font-size: var(--text-title); }
-.rows p { color: var(--color-ink-2); }
-.rows .stack { margin-top: var(--space-xs); font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+/* sections */
+section.sec { padding-block: var(--section-gap-s); }
+.sec .head { display: grid; gap: var(--space-sm); margin-bottom: var(--space-2xl); }
+.sec .head p { color: var(--color-muted); }
+.sec .head p::before { content: "# "; }
+
+/* projects as a man page synopsis */
+.ref { list-style: none; margin: 0; padding: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+.ref li { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--gap-columns); padding-block: var(--space-xl); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.ref h3 { font-size: var(--text-title); }
+.ref h3 a { color: var(--color-ink); text-decoration: none; }
+.ref h3 a::before { content: "$ "; color: var(--color-muted); }
+.ref h3 a:hover { color: var(--color-accent); }
+.ref .args { margin-top: var(--space-2xs); font-size: var(--text-sm); color: var(--color-accent); }
+.ref p { color: var(--color-ink-2); }
+
+/* the diagram */
+.arch { padding: var(--space-xl); font-size: var(--text-sm); line-height: 1.5; overflow-x: auto; color: var(--color-ink-2); }
+.arch .acc { color: var(--color-accent); }
+.arch-note { margin-top: var(--space-lg); color: var(--color-muted); max-width: 70ch; font-size: var(--text-sm); }
+.arch-note::before { content: "# "; }
+
+/* private work as ls -l */
+.ls { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.ls th { text-align: left; font-weight: 400; color: var(--color-muted); padding: var(--space-sm) var(--space-md) var(--space-sm) 0; border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+.ls td { padding: var(--space-md) var(--space-md) var(--space-md) 0; border-bottom: var(--rule-hair) solid var(--color-rule); vertical-align: top; color: var(--color-ink-2); }
+.ls td:first-child { color: var(--color-muted); white-space: nowrap; }
+.ls .n { color: var(--color-accent); font-weight: 500; }
+.denied { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); }
 
 /* close */
-.close { padding-block: var(--section-gap-s) var(--section-gap); border-top: var(--rule-heavy) solid var(--color-rule); }
-.close h2 { max-width: none; font-size: var(--text-display); }
-.mail { display: inline-block; margin-block: var(--space-xl); font-family: var(--font-display); font-weight: 600; font-size: var(--text-3xl); line-height: 1.1; overflow-wrap: anywhere; text-decoration-thickness: 1px; transition: text-decoration-color var(--dur-short) var(--ease-out); }
-.mail:hover { text-decoration-color: transparent; }
+.close { padding-block: var(--section-gap-s) var(--section-gap); border-top: var(--rule-hair) solid var(--color-rule); }
+.close h2 { font-size: var(--text-display); max-width: none; }
+.mail { display: inline-block; margin-block: var(--space-xl); font-size: var(--text-2xl); font-stretch: var(--stretch-display); color: var(--color-accent); overflow-wrap: anywhere; }
+.mail::before { content: "~ $ mail "; color: var(--color-muted); }
 
-footer { border-top: var(--rule-hair) solid var(--color-rule-2); padding-block: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+footer { border-top: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
 footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-md); }
-footer a { color: var(--color-ink); }
 
 @media (max-width: 60rem) {
   .hero { min-height: 0; }
-  .register thead { display: none; }
-  .register tr { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); padding-block: var(--space-sm); border-top: var(--rule-hair) solid var(--color-rule-2); }
-  .register tr:first-child { border-top: 0; }
-  .register td { border: 0; padding: var(--space-2xs) var(--space-md); }
-  .register td:first-child { grid-row: span 3; width: auto; }
-  .sys { grid-template-columns: minmax(0, 1fr); }
-  .sys .node { grid-area: auto; }
-  .to-r::after { display: none; }
-  .to-b::before { display: none; }
-  .node:not(:last-child)::before { content: ""; display: block; position: absolute; top: 100%; left: 50%; width: var(--rule-hair); height: var(--space-2xl); background: var(--color-rule); }
-  .fig { padding: var(--space-xl) var(--space-lg); }
-  .rows li { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  .hero .container { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
+  .figs .container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fig:nth-child(3) { border-left: 0; padding-left: 0; }
+  .fig:nth-child(n+3) { border-top: var(--rule-hair) solid var(--color-rule); }
+  .ref li { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
+  .ls thead { display: none; }
+  .ls tr { display: grid; padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+  .ls td { border: 0; padding: 0; }
 }
-@media (max-width: 40rem) { .nav ul li:first-child { display: none; } .mail { font-size: var(--text-xl); } }
-@media (prefers-reduced-motion: reduce) { .btn { transition: background-color var(--dur-short) linear; } .btn:active { transform: none; } }
+@media (max-width: 40rem) {
+  .nav ul li:first-child { display: none; }
+  .session, .arch { padding: var(--space-md); font-size: var(--text-xs); }
+  .session { white-space: pre-wrap; }
+  h2 { font-size: 1.75rem; }
+  .mail { font-size: var(--text-md); }
+  .mail::before { content: ""; }
+}
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
   </style>
 </head>
 <body>
 
 <header class="nav">
   <div class="container">
-    <a href="#" class="wordmark">Burak Şanlılar</a>
+    <a href="#" class="wordmark"><span>~/</span>burak</a>
     <ul>
-      <li><a href="#projeler">Projeler</a></li>
-      <li><a href="#deneyim">Deneyim</a></li>
-      <li><a href="#iletisim">İletişim</a></li>
+      <li><a href="#projeler">projeler</a></li>
+      <li><a href="#deneyim">deneyim</a></li>
+      <li><a href="#iletisim">iletişim</a></li>
     </ul>
   </div>
 </header>
@@ -136,67 +146,85 @@ footer a { color: var(--color-ink); }
 <main>
   <section class="hero">
     <div class="container">
-      <h1>Merhaba, ben Burak.</h1>
-      <div class="hero-row">
-        <p class="lead">Bilgisayar mühendisiyim. Cihazdan buluta, uçtan uca yazılım kuruyorum.</p>
+      <div class="copy">
+        <h1>Merhaba, ben Burak.</h1>
+        <p class="lead">Bilgisayar mühendisiyim. Sensörden buluta, uçtan uca yazılım kuruyorum.</p>
         <div class="ctas">
           <a class="btn btn--primary" href="mailto:sanlilarburak@gmail.com">E-posta gönder</a>
           <a class="btn" href="https://github.com/buraksanlilar">GitHub</a>
         </div>
       </div>
-      <figure class="register" id="projeler">
-        <table>
-          <thead><tr><th scope="col">No.</th><th scope="col">Proje</th><th scope="col">Alan</th><th scope="col">Teknoloji</th></tr></thead>
-          <tbody>
-            <tr><td>01</td><td class="name"><a href="https://github.com/buraksanlilar/agriflow">AgriFlow</a><small>Sensörden pompaya otomatik sulama ve verim tahmini</small></td><td>IoT ve ML</td><td>MQTT, LightGBM, FastAPI</td></tr>
-            <tr><td>02</td><td class="name"><a href="https://github.com/buraksanlilar/crop-yield-forecast">Crop Yield Forecast</a><small>466 milyon satırla Türkiye geneli verim tahmini</small></td><td>Makine öğrenmesi</td><td>Python, LightGBM</td></tr>
-            <tr><td>03</td><td class="name"><a href="https://github.com/buraksanlilar/PcseDatasetCreator">PCSE Dataset Creator</a><small>Hava, toprak ve ekim verisinden simülasyon veri seti</small></td><td>Veri hattı</td><td>Python, PCSE</td></tr>
-            <tr><td>04</td><td class="name"><a href="https://github.com/buraksanlilar/Multi-Modal-Influencer-Analytics">Influencer Analytics</a><small>Instagram ve TikTok verisiyle marka eşleştirme</small></td><td>Veri ve NLP</td><td>Python, Streamlit</td></tr>
-          </tbody>
-        </table>
-        <figcaption>Açık kaynak projeler. Kodları GitHub’da.</figcaption>
-      </figure>
+      <pre class="well session" aria-label="Terminal oturumu"><div class="line cmd">whoami</div><div class="line out">burak şanlılar, bilgisayar mühendisi</div><div class="line cmd">cat stack.txt</div><div class="line out">.NET  Node.js  Python  Angular  MQTT  LightGBM</div><div class="line cmd">ls ~/projeler</div><div class="line out"><span class="dir">agriflow/</span>  <span class="dir">crop-yield-forecast/</span>
+<span class="dir">pcse-dataset-creator/</span>  <span class="dir">influencer-analytics/</span></div><div class="line cmd"><span class="caret" aria-hidden="true"></span></div></pre>
     </div>
   </section>
 
-  <section class="case" id="vaka">
+  <div class="figs" aria-label="Crop Yield Forecast ölçüleri">
     <div class="container">
-      <div class="head">
-        <h2>AgriFlow nasıl çalışıyor</h2>
-        <p class="lead">Tarladaki sensör verisini okuyor, ne zaman ve ne kadar sulanacağına karar veriyor, pompayı kendisi açıyor.</p>
-      </div>
-      <figure class="fig">
-        <ol class="sys" aria-label="AgriFlow sistem şeması: sensörden pompaya ve panele veri akışı">
-          <li class="node n1 to-r"><b>Sensörler</b><span>toprak nemi ve hava</span></li>
-          <li class="node n2 to-r to-b"><b>MQTT</b><span>farm/{tarla}/sensors</span></li>
-          <li class="node n3 to-r"><b>Karar motoru</b><span>sula, bekle, durdur</span></li>
-          <li class="node n4"><b>Pompa</b><span>farm/{tarla}/pump</span></li>
-          <li class="node n5 to-r"><b>SQLite</b><span>tüm ölçümler</span></li>
-          <li class="node n6 to-r"><b>LightGBM</b><span>Sentinel-2 ve Open-Meteo ile günlük tahmin</span></li>
-          <li class="node n7"><b>Panel</b><span>FastAPI ve HTMX</span></li>
-        </ol>
-        <figcaption>22 ürün için 30, 60 ve 90 günlük verim tahmini. Eksik sensör verisi hava durumu verisiyle tamamlanıyor, gerçek hasattan sonra model tarlaya göre yeniden ayarlanıyor.</figcaption>
-      </figure>
-      <div class="ctas"><a class="btn" href="https://github.com/buraksanlilar/agriflow">Kodu incele</a></div>
+      <div class="fig"><b>466M</b><span># saatlik veri satırı</span></div>
+      <div class="fig"><b>22</b><span># ürün için verim modeli</span></div>
+      <div class="fig"><b>0.964</b><span># R², tüm sezon tahmini</span></div>
+      <div class="fig"><b>0.98</b><span># AUC, erken hasat kaybı</span></div>
     </div>
-  </section>
+  </div>
 
-  <section class="caps" id="deneyim">
+  <section class="sec" id="projeler">
     <div class="container">
       <div class="head">
-        <h2>Profesyonel işler</h2>
-        <p class="lead">Şirket için yazdığım sistemler. Kodları gizli, burada yalnızca özet var.</p>
+        <h2>Projeler</h2>
+        <p>açık kaynak, kodları GitHub’da</p>
       </div>
-      <ul class="rows">
-        <li><h3>Endüstriyel IoT bulut platformu</h3><div><p>Bağlı makinelerden telemetri toplayan, saklayan ve uzaktan komut gönderen backend.</p><p class="stack">.NET, MQTT, TimescaleDB, Docker</p></div></li>
-        <li><h3>Makine izleme uygulamaları</h3><div><p>Makineleri telefondan canlı izleyip kontrol etmeyi sağlayan PWA’lar.</p><p class="stack">Angular, Ionic, TypeScript</p></div></li>
-        <li><h3>Makine yönetim API’si</h3><div><p>Makine, kullanıcı ve yetki yönetimini sunan REST servisi.</p><p class="stack">Node.js, REST</p></div></li>
-        <li><h3>Çok dilli içerik yöneticisi</h3><div><p>Uygulama metinlerini dillere göre yöneten masaüstü ve web aracı.</p><p class="stack">Angular, Tauri, Fastify, SQLite</p></div></li>
+      <ul class="ref">
+        <li><div><h3><a href="https://github.com/buraksanlilar/agriflow">agriflow</a></h3><p class="args">--mqtt --lightgbm --fastapi</p></div><p>Tarladaki sensörleri okuyup ne zaman sulanacağına karar veren ve pompayı kendisi açan IoT sistemi.</p></li>
+        <li><div><h3><a href="https://github.com/buraksanlilar/crop-yield-forecast">crop-yield-forecast</a></h3><p class="args">--python --lightgbm</p></div><p>466 milyon satırlık simülasyon ve hava verisiyle Türkiye geneli verim tahmini.</p></li>
+        <li><div><h3><a href="https://github.com/buraksanlilar/PcseDatasetCreator">pcse-dataset-creator</a></h3><p class="args">--python --pcse</p></div><p>Hava, toprak ve ekim verisini birleştirip bitki simülasyonu için veri seti üreten araç.</p></li>
+        <li><div><h3><a href="https://github.com/buraksanlilar/Multi-Modal-Influencer-Analytics">influencer-analytics</a></h3><p class="args">--python --streamlit --nlp</p></div><p>Instagram ve TikTok verisi toplayıp markayla doğru içerik üreticisini eşleştiren ML platformu.</p></li>
       </ul>
     </div>
   </section>
 
-<section class="close" id="iletisim">
+  <section class="sec" id="vaka">
+    <div class="container">
+      <div class="head">
+        <h2><span style="white-space: nowrap">agriflow --arch</span></h2>
+        <p>sensörden pompaya, tek bir döngü</p>
+      </div>
+<pre class="well arch" aria-label="AgriFlow mimarisi: sensörler MQTT ile karar motoruna, karar motoru pompaya; veriler SQLite’a, oradan LightGBM ve panele">
++-----------+  farm/{tarla}/sensors  +--------------+  farm/{tarla}/pump  +-------+
+| <span class="acc">sensörler</span> | ---------------------&gt; | <span class="acc">karar motoru</span> | -----------------&gt; | <span class="acc">pompa</span> |
++-----------+                        +--------------+                    +-------+
+      |
+      v
++-----------+        +--------------+        +-----------------+
+|  <span class="acc">sqlite</span>   | -----&gt; |   <span class="acc">lightgbm</span>   | -----&gt; | <span class="acc">panel</span> (fastapi) |
++-----------+        +--------------+        +-----------------+
+                            ^
+                            |
+                sentinel-2 + open-meteo</pre>
+      <p class="arch-note">22 ürün için 30, 60 ve 90 günlük verim tahmini. Eksik sensör verisi hava verisiyle tamamlanır, hasattan sonra model tarlaya göre yeniden ayarlanır.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="deneyim">
+    <div class="container">
+      <div class="head">
+        <h2>ls -l ~/iş</h2>
+        <p>şirket için yazdığım sistemler</p>
+      </div>
+      <table class="ls">
+        <thead><tr><th scope="col">izin</th><th scope="col">ad</th><th scope="col">ne yapıyor</th><th scope="col">teknoloji</th></tr></thead>
+        <tbody>
+          <tr><td>drwx------</td><td class="n">iot-bulut-platformu/</td><td>Makinelerden telemetri toplayan, saklayan ve uzaktan komut gönderen backend.</td><td>.NET, MQTT, TimescaleDB</td></tr>
+          <tr><td>drwx------</td><td class="n">makine-izleme/</td><td>Makineleri telefondan canlı izleyip kontrol eden PWA’lar.</td><td>Angular, Ionic</td></tr>
+          <tr><td>drwx------</td><td class="n">makine-api/</td><td>Makine, kullanıcı ve yetki yönetimini sunan REST servisi.</td><td>Node.js, REST</td></tr>
+          <tr><td>drwx------</td><td class="n">icerik-yoneticisi/</td><td>Uygulama metinlerini dillere göre yöneten masaüstü ve web aracı.</td><td>Angular, Tauri, Fastify</td></tr>
+        </tbody>
+      </table>
+      <p class="denied">cat: kaynak kodu: Permission denied. Burada yalnızca özet var.</p>
+    </div>
+  </section>
+
+  <section class="close" id="iletisim">
     <div class="container">
       <h2>Bir fikrin mi var? Konuşalım.</h2>
       <a class="mail" href="mailto:sanlilarburak@gmail.com">sanlilarburak@gmail.com</a>
@@ -206,8 +234,26 @@ footer a { color: var(--color-ink); }
 </main>
 
 <footer>
-  <div class="container"><span>Burak Şanlılar, 2026</span><a href="#">Başa dön</a></div>
+  <div class="container"><span>burak şanlılar, 2026</span><a href="#">exit 0</a></div>
 </footer>
 
+<script>
+  // types the hero session once; without script or with reduced motion it is already printed
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lines = [...document.querySelectorAll('.session .line')];
+    document.documentElement.classList.add('js-typing');
+    let n = 0;
+    const next = () => {
+      const el = lines[n++]; if (!el) return;
+      el.classList.add('on');
+      const text = el.textContent;
+      if (!el.classList.contains('cmd') || !text) return setTimeout(next, 300);
+      let i = 0; el.textContent = '';
+      const t = setInterval(() => { el.textContent = text.slice(0, ++i); if (i >= text.length) { clearInterval(t); setTimeout(next, 250); } }, 55);
+    };
+    setTimeout(next, 300);
+  })();
+</script>
 </body>
 </html>
