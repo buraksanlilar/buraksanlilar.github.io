@@ -16,7 +16,7 @@
   --bg: #0a0e14; --bg-2: #0f141c; --bg-3: #151c26; --line: #1e2732; --line-2: #2a3644;
   --fg: #e1e7ee; --fg-2: #a9b4c1; --dim: #6d7a89;
   --arch: #1793d1; --arch-2: #52b6ea; --arch-wash: rgba(23, 147, 209, 0.12);
-  --green: #8ae234; --yellow: #e5c07b; --red: #f47067; --violet: #c49bff;
+  --green: #5ad1a8; --yellow: #e5c07b; --red: #f47067; --violet: #c49bff;
   --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --wrap: 1200px; --r: 8px;
@@ -78,12 +78,13 @@ p { margin: 0; }
 .term-body .o { white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 8px; }
 .term-body pre { margin: 0; font: inherit; white-space: pre; }
 .ps { white-space: nowrap; }
-.ps .u { color: var(--green); font-weight: 700; }
-.ps .p { color: var(--arch-2); }
+.ps .u { color: var(--arch-2); font-weight: 700; }
+.ps .p { color: var(--dim); }
 .in-line { display: flex; align-items: baseline; gap: 0.6ch; }
 #tin { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--fg); font: inherit; padding: 0; caret-color: var(--arch); }
-.fetch { display: flex; gap: 22px; align-items: flex-start; }
-.fetch .logo-a { color: var(--arch); font-weight: 700; line-height: 1.25; font-size: 11.5px; }
+.fetch { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: flex-start; }
+.fetch .logo-a { color: var(--fg); line-height: 1; font-size: 10.5px; }
+.fetch .logo-a span { color: var(--arch); }
 .fetch .info { line-height: 1.55; }
 .fetch .k { color: var(--arch); font-weight: 700; }
 .swatch { display: inline-block; width: 2.2ch; height: 1em; vertical-align: -0.15em; }
@@ -106,7 +107,7 @@ p { margin: 0; }
 section.sec { padding: 104px 0; border-bottom: 1px solid var(--line); }
 .sec-title { margin-bottom: 44px; }
 .sec-title .cmd { font: 13px var(--mono); color: var(--dim); margin-bottom: 14px; }
-.sec-title .cmd b { color: var(--green); font-weight: 500; }
+.sec-title .cmd b { color: var(--arch); font-weight: 500; }
 .sec-title h2 { display: flex; align-items: baseline; gap: 16px; font-size: clamp(2rem, 2.6vw + 1rem, 3.1rem); }
 .sec-title h2 .idx { font: 500 0.45em var(--mono); color: var(--arch); letter-spacing: 0; }
 .sec-title p { margin-top: 14px; color: var(--fg-2); max-width: 60ch; }
@@ -149,7 +150,7 @@ section.sec { padding: 104px 0; border-bottom: 1px solid var(--line); }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .tags li { font: 12px var(--mono); color: var(--fg-2); background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; }
 .badge { font: 12px var(--mono); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line-2); }
-.badge.pub { color: var(--green); border-color: rgba(138, 226, 52, 0.35); }
+.badge.pub { color: var(--green); border-color: rgba(90, 209, 168, 0.35); }
 .badge.priv { color: var(--yellow); border-color: rgba(229, 192, 123, 0.35); }
 
 /* private: ls -l */
@@ -182,36 +183,46 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 footer a { color: var(--fg-2); }
 
 /* project page */
-#detail { padding: 56px 0 104px; border-bottom: 1px solid var(--line); }
-.back { font: 14px var(--mono); color: var(--fg-2); text-decoration: none; }
-.back:hover { color: var(--arch-2); }
-.d-head { display: grid; gap: 16px; margin: 30px 0 40px; padding-bottom: 40px; border-bottom: 1px solid var(--line); justify-items: start; }
-.d-head .cmd { font: 13px var(--mono); color: var(--dim); }
-.d-head .cmd b { color: var(--green); font-weight: 500; }
-.d-head h1 { font: 800 clamp(2rem, 4vw + 1rem, 4.25rem) var(--mono); letter-spacing: -0.035em; }
-.d-head .sub { font-size: 1.25rem; color: var(--fg-2); }
-.d-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 56px; align-items: start; }
-.d-main { display: grid; gap: 44px; min-width: 0; }
-.d-main h2 { font: 700 13px var(--mono); color: var(--arch); letter-spacing: 0; margin-bottom: 14px; }
-.d-main p { color: var(--fg-2); font-size: 17px; max-width: 65ch; }
-.d-main ul { margin: 0; padding-left: 1.2em; color: var(--fg-2); display: grid; gap: 7px; }
-.d-main li::marker { color: var(--arch); content: "▸ "; }
-.facts { width: 100%; border-collapse: collapse; font: 14px var(--mono); }
-.facts td { padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--fg-2); vertical-align: top; }
-.facts td:first-child { color: var(--fg); padding-right: 20px; }
-.arch { padding: 22px; border: 1px solid var(--line); border-radius: var(--r); background: linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 20px 20px, linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 20px 20px, #0c1118; color: var(--arch-2); font: 13px/1.55 var(--mono); overflow-x: auto; margin: 0; }
-.d-side { position: sticky; top: 86px; display: grid; gap: 16px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); }
-.d-side h2 { font: 700 13px var(--mono); color: var(--dim); }
-.d-side .note { font-size: 14px; color: var(--fg-2); }
-.d-nav { display: flex; justify-content: space-between; gap: 16px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font: 14px var(--mono); }
-.d-nav a { color: var(--fg-2); text-decoration: none; }
-.d-nav a:hover { color: var(--arch-2); }
+#detail { padding: 40px 0 104px; border-bottom: 1px solid var(--line); }
+.d-top { display: flex; justify-content: space-between; gap: 16px; font: 14px var(--mono); }
+.d-top a { color: var(--fg-2); text-decoration: none; }
+.d-top a:hover { color: var(--arch-2); }
+.d-head { position: relative; display: grid; gap: 22px; justify-items: start; margin: 36px 0 48px; }
+.d-head .path { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font: 13px var(--mono); color: var(--dim); }
+.d-head .path b { color: var(--arch-2); font-weight: 500; }
+.d-head h1 { font-size: clamp(2.25rem, 3.6vw + 1rem, 4.25rem); font-weight: 700; letter-spacing: -0.035em; max-width: 18ch; }
+.d-head .lead { font-size: clamp(1.05rem, 0.4vw + 1rem, 1.25rem); color: var(--fg-2); max-width: 62ch; }
+.d-head .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; }
+.d-head .metric { font: 13px var(--mono); color: var(--fg-2); }
+.d-head .metric b { color: var(--arch-2); font-weight: 500; }
+.d-win { margin-bottom: 56px; }
+.d-win .term-body { height: auto; overflow-x: auto; padding: 22px 24px; cursor: auto; }
+.d-win pre { margin: 0; font: 13px/1.55 var(--mono); color: var(--arch-2); white-space: pre; }
+.d-win .deny { white-space: normal; color: var(--fg-2); }
+.d-h { font: 13px var(--mono); color: var(--dim); margin-bottom: 18px; }
+.d-h b { color: var(--arch); font-weight: 500; }
+.d-sec { margin-bottom: 56px; }
+.feat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; counter-reset: f; list-style: none; margin: 0; padding: 0; }
+.feat li { display: grid; grid-template-columns: 3ch minmax(0, 1fr); gap: 14px; padding: 20px 22px; background: var(--bg-2); color: var(--fg); font-size: 15.5px; }
+.feat li::before { counter-increment: f; content: counter(f, decimal-leading-zero); font: 12px/1.9 var(--mono); color: var(--arch); }
+.feat li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.facts div { display: grid; gap: 6px; align-content: start; padding: 22px; background: var(--bg-2); }
+.facts span { font: 12px var(--mono); color: var(--dim); }
+.facts b { font: 600 15px/1.45 var(--mono); color: var(--fg); }
+.d-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding-top: 8px; }
+.d-nav a { display: grid; gap: 6px; padding: 20px 22px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); color: var(--fg); text-decoration: none; transition: border-color 0.15s; }
+.d-nav a:hover { border-color: var(--arch); }
+.d-nav a:last-child { text-align: right; }
+.d-nav span { font: 12px var(--mono); color: var(--dim); }
+.d-nav b { font: 600 16px var(--mono); }
 
 [hidden] { display: none !important; }
 
 @media (max-width: 960px) {
   .hero { padding: 48px 0 56px; }
-  .hero .wrap, .now, .d-grid, .contact .wrap { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .feat, .facts, .d-nav { grid-template-columns: minmax(0, 1fr); }
+  .hero .wrap, .now, .contact .wrap { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .stats .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat:nth-child(3) { border-left: 0; padding-left: 0; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
@@ -219,7 +230,6 @@ footer a { color: var(--fg-2); }
   .ls a { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
   .ls .perm { display: none; }
   .ls p { grid-column: 1 / -1; }
-  .d-side { position: static; }
   section.sec { padding: 76px 0; }
 }
 @media (max-width: 640px) {
@@ -232,7 +242,7 @@ footer a { color: var(--fg-2); }
   html { scroll-behavior: auto; }
   .cursor, .pk { animation: none; }
   .pk { display: none; }
-  .btn, .card, .ls a { transition: none; }
+  .btn, .card, .ls a, .d-nav a { transition: none; }
 }
   </style>
 </head>
@@ -240,7 +250,7 @@ footer a { color: var(--fg-2); }
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#"><span class="g">burak@archlinux</span>:<span class="b2">~</span>$<span class="cursor" aria-hidden="true"></span></a>
+    <a class="logo" href="#"><span class="b2">burak@sanlilar</span>:<span class="d">~</span>$<span class="cursor" aria-hidden="true"></span></a>
     <ul>
       <li><a href="#simdi">şimdi</a></li>
       <li><a href="#projeler">projeler</a></li>
@@ -266,7 +276,7 @@ footer a { color: var(--fg-2); }
         </div>
       </div>
       <div class="term" id="term">
-        <div class="term-head"><span><b>ziyaretci@archlinux</b>: ~</span><span>bash, 80×24</span></div>
+        <div class="term-head"><span><b>burak@sanlilar</b>: ~</span><span>bash, 80×24</span></div>
         <div class="term-body" id="tbody">
           <div id="tout" role="log" aria-live="polite"></div>
           <div class="in-line"><label for="tin" id="tps" class="ps"></label><input id="tin" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" aria-label="Terminal komutu"></div>
@@ -581,29 +591,25 @@ const renderDetail = (p) => {
   const same = PROJECTS.filter((x) => x.vis === p.vis);
   const i = same.indexOf(p);
   const prev = same[(i - 1 + same.length) % same.length], next = same[(i + 1) % same.length];
+  const win = (file, body) => `<div class="term d-win"><div class="term-head"><span><b>${file}</b></span><span>${esc(p.id)}</span></div><div class="term-body">${body}</div></div>`;
   document.getElementById('dwrap').innerHTML = `
-    <a class="back" href="#${pub ? 'projeler' : 'is'}">← cd ..</a>
-    <div class="d-head">
-      <div class="cmd"><b>$</b> cat ~/projeler/${p.vis}/${esc(p.id)}/README.md</div>
-      <span class="badge ${pub ? 'pub' : 'priv'}">${p.vis}</span>
-      <h1>${esc(p.id)}</h1>
-      <p class="sub">${esc(p.title)}</p>
-    </div>
-    <div class="d-grid">
-      <div class="d-main">
-        <div><h2>## özet</h2><p>${esc(p.summary)}</p></div>
-        ${p.points ? `<div><h2>## neler yapıyor</h2><ul>${p.points.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
-        ${p.facts ? `<div><h2>## sonuçlar</h2><table class="facts">${p.facts.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table></div>` : ''}
-        ${p.arch ? `<div><h2>## mimari</h2><pre class="arch">${esc(p.arch)}</pre></div>` : ''}
+    <div class="d-top"><a href="#${pub ? 'projeler' : 'is'}">← cd ..</a><span class="d">${i + 1} / ${same.length}</span></div>
+    <header class="d-head">
+      <div class="path"><span class="badge ${pub ? 'pub' : 'priv'}">${p.vis}</span><span>~/projeler/${p.vis}/<b>${esc(p.id)}</b></span></div>
+      <h1>${esc(p.title)}</h1>
+      <p class="lead">${esc(p.summary)}</p>
+      <div class="row">
+        ${pub ? `<a class="btn btn--primary" href="${GH + p.repo}" target="_blank" rel="noopener">GitHub’da aç ↗</a>` : ''}
+        ${p.metric ? `<span class="metric">${p.metric.split(', ').map((m) => `<b>▸</b> ${esc(m)}`).join('&nbsp;&nbsp; ')}</span>` : ''}
       </div>
-      <aside class="d-side">
-        <h2>stack</h2>${tags(p.stack)}
-        ${pub
-          ? `<a class="btn btn--primary" href="${GH + p.repo}" target="_blank" rel="noopener">GitHub’da aç ↗</a>`
-          : `<p class="note"><span class="y">Permission denied.</span> Şirket projesi: kaynak kodu ve mimari detayları paylaşılamıyor, burada yalnızca özet var.</p>`}
-      </aside>
-    </div>
-    <nav class="d-nav"><a href="#p/${prev.id}">← ${esc(prev.id)}</a><a href="#p/${next.id}">${esc(next.id)} →</a></nav>`;
+      ${tags(p.stack)}
+    </header>
+    ${p.arch
+      ? win('mimari.txt', `<pre>${esc(p.arch)}</pre>`)
+      : win('README.md', `<p class="deny"><span class="r">Permission denied.</span> Şirket projesi: kaynak kodu ve mimari detayları paylaşılamıyor, burada yalnızca özet var.</p>`)}
+    ${p.facts ? `<section class="d-sec"><div class="d-h"><b>##</b> sonuçlar</div><div class="facts">${p.facts.map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('')}</div></section>` : ''}
+    ${p.points ? `<section class="d-sec"><div class="d-h"><b>##</b> neler yapıyor</div><ol class="feat">${p.points.map((x) => `<li>${esc(x)}</li>`).join('')}</ol></section>` : ''}
+    <nav class="d-nav"><a href="#p/${prev.id}"><span>← önceki</span><b>${esc(prev.id)}</b></a><a href="#p/${next.id}"><span>sonraki →</span><b>${esc(next.id)}</b></a></nav>`;
 };
 const route = () => {
   const m = location.hash.match(/^#p\/(.+)$/);
@@ -629,36 +635,31 @@ const tout = document.getElementById('tout'), tin = document.getElementById('tin
 const started = Date.now();
 const hist = []; let hi = 0;
 const run = (cmd, label = cmd) => `<button class="run" data-cmd="${esc(cmd)}">${esc(label)}</button>`;
-const ps = () => `<span class="ps">[<span class="u">ziyaretci@archlinux</span> <span class="p">~</span>]$</span>`;
+const ps = () => `<span class="ps">[<span class="u">burak@sanlilar</span> <span class="p">~</span>]$</span>`;
 const print = (html) => { const d = document.createElement('div'); d.className = 'o'; d.innerHTML = html; tout.appendChild(d); return d; };
 const scroll = () => { tbody.scrollTop = tbody.scrollHeight; };
 
-const ARCH = String.raw`                   -'
-                  .o+'
-                 'ooo/
-                '+oooo:
-               '+oooooo:
-               -+oooooo+:
-             '/:-:++oooo+:
-            '/++++/+++++++:
-           '/++++++++++++++:
-          '/+++ooooooooooooo/'
-         ./ooosssso++osssssso+'
-        .oossssso-''''/ossssss+'
-       -osssssso.      :ssssssso.
-      :osssssss/        osssso+++.
-     /ossssssss/        +ssssooo/-
-   '/ossssso+/:-        -:/+osssso+-
-  '+sso+:-'                 '.-/+oso:
- '++:.                           '-/+/
- .'                                 '/`.replace(/'/g, '`');
+const NAME = [
+'███  █  █ ███   ██  █  █',
+'█  █ █  █ █  █ █  █ █ █',
+'███  █  █ ███  ████ ██',
+'█  █ █  █ █ █  █  █ █ █',
+'███   ██  █  █ █  █ █  █',
+'',
+'<span> ███  ██  █  █ █    ███ █     ██  ███',
+'█    █  █ ██ █ █     █  █    █  █ █  █',
+' ██  ████ █ ██ █     █  █    ████ ███',
+'   █ █  █ █  █ █     █  █    █  █ █ █',
+'███  █  █ █  █ ████ ███ ████ █  █ █  █',
+' ▀▀</span>',
+].join('\n');
 
 const uptime = () => { const s = Math.floor((Date.now() - started) / 1000); return `${Math.floor(s / 60)} dk ${s % 60} sn`; };
 const neofetch = () => {
   const pub = PROJECTS.filter((p) => p.vis === 'public').length;
   const kv = (k, v) => `<span class="k">${k}</span>: ${v}`;
   const info = [
-    `<span class="g"><b>burak</b></span>@<span class="b"><b>archlinux</b></span>`,
+    `<span class="b2"><b>burak</b></span>@<span class="b"><b>sanlilar</b></span>`,
     '<span class="d">─────────────────────</span>',
     kv('OS', 'Arch Linux x86_64'),
     kv('Host', 'Bilgisayar Mühendisi'),
@@ -672,9 +673,9 @@ const neofetch = () => {
     kv('Frontend', 'Angular, Ionic'),
     kv('Now', 'IoT bulut platformu'),
     '',
-    ['#0a0e14', '#f47067', '#8ae234', '#e5c07b', '#1793d1', '#c49bff', '#52b6ea', '#e1e7ee'].map((c) => `<span class="swatch" style="background:${c}"></span>`).join(''),
+    ['#0a0e14', '#151c26', '#2a3644', '#0f5f8a', '#1793d1', '#52b6ea', '#a9d8f2', '#e1e7ee'].map((c) => `<span class="swatch" style="background:${c}"></span>`).join(''),
   ].join('\n');
-  return `<div class="fetch"><pre class="logo-a">${esc(ARCH)}</pre><div class="info">${info}</div></div>`;
+  return `<div class="fetch"><pre class="logo-a" aria-label="Burak Şanlılar">${NAME}</pre><div class="info">${info}</div></div>`;
 };
 setInterval(() => document.querySelectorAll('[data-uptime]').forEach((e) => { e.textContent = uptime(); }), 1000);
 
@@ -716,13 +717,13 @@ const COMMANDS = {
   systemctl: () => { location.hash = 'simdi'; return `<span class="g">●</span> iot-bulut-platformu.service <span class="g">active (running)</span>`; },
   contact: () => `<span class="b">mail</span>    <a href="mailto:${MAIL}">${MAIL}</a>\n<span class="b">github</span>  <a href="${GH}" target="_blank" rel="noopener">github.com/buraksanlilar</a>`,
   neofetch,
-  whoami: () => 'ziyaretci  <span class="d">(burak’ı arıyorsan:</span> ' + run('neofetch') + '<span class="d">)</span>',
-  pwd: () => '/home/ziyaretci',
+  whoami: () => 'burak  <span class="d">(detay için</span> ' + run('neofetch') + '<span class="d">)</span>',
+  pwd: () => '/home/burak',
   date: () => new Date().toLocaleString('tr-TR'),
   echo: (args) => esc(args.join(' ')),
   history: () => hist.map((h, i) => `${String(i + 1).padStart(4)}  ${esc(h)}`).join('\n'),
   clear: () => { tout.innerHTML = ''; return null; },
-  sudo: () => '<span class="r">ziyaretci is not in the sudoers file. This incident will be reported.</span>',
+  sudo: () => '<span class="r">sudo: bu sitede root yetkisi yok :)</span>',
   pacman: () => ':: Synchronizing package databases...\n core is up to date\n extra is up to date\n<span class="d"> there is nothing to do</span>',
   vim: () => '<span class="d">vim’den çıkış yolu bilinmiyor, açmayalım.</span>',
   exit: () => '<span class="d">buradan çıkış yok :) </span>' + run('contact', 'iletişime geç'),
