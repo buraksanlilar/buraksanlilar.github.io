@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Burak Şanlılar</title>
+  <meta name="description" content="Burak Şanlılar — makine öğrenmesi, IoT ve tarım teknolojileri.">
+  <style>
+    :root { --bg: #fafaf9; --fg: #1c1917; --muted: #78716c; --line: #e7e5e4; --accent: #15803d; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0c0a09; --fg: #e7e5e4; --muted: #a8a29e; --line: #292524; --accent: #4ade80; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 760px; margin: 0 auto; padding: 72px 16px 48px; }
+    h1 { font-size: clamp(2rem, 6vw, 3rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .lead { font-size: 1.15rem; color: var(--muted); margin: 0 0 24px; max-width: 56ch; }
+    h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 56px 0 8px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .links { display: flex; gap: 20px; flex-wrap: wrap; }
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { padding: 18px 0; border-bottom: 1px solid var(--line); }
+    li a { font-weight: 600; font-size: 1.05rem; }
+    li p { margin: 4px 0 6px; }
+    .tags { font-size: 0.8rem; color: var(--muted); }
+    footer { margin-top: 56px; font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Burak Şanlılar</h1>
+  <p class="lead">Makine öğrenmesi, IoT ve tarım teknolojileri üzerine çalışan yazılım geliştirici. Sensör verisinden modele, modelden sahadaki pompaya kadar uçtan uca sistemler kuruyorum.</p>
+  <div class="links">
+    <a href="https://github.com/buraksanlilar">GitHub</a>
+  </div>
+
+  <h2>Öne çıkan projeler</h2>
+  <ul>
+    <li>
+      <a href="https://github.com/buraksanlilar/agriflow">AgriFlow</a>
+      <p>IoT tabanlı hassas sulama sistemi. MQTT üzerinden gelen toprak nemi ve hava sensörü verisini, WOFOST simülasyonlarıyla eğitilmiş LightGBM modellerine bağlıyor; günlük hedef nemi hesaplayıp pompaları otomatik yönetiyor.</p>
+      <span class="tags">IoT · MQTT · LightGBM · Python</span>
+    </li>
+    <li>
+      <a href="https://github.com/buraksanlilar/crop-yield-forecast">Crop Yield Forecast</a>
+      <p>Türkiye genelinde ürün verimi tahmini: 466M saatlik satır, 23 ürün, 71 lokasyon (2014–2024).</p>
+      <span class="tags">ML · Büyük veri · WOFOST</span>
+    </li>
+    <li>
+      <a href="https://github.com/buraksanlilar/Multi-Modal-Influencer-Analytics">Multi-Modal Influencer Analytics</a>
+      <p>Türk Instagram ve TikTok influencer'ları için veri toplama, skorlama, marka eşleştirme ve analiz platformu.</p>
+      <span class="tags">Scraping · ML · Streamlit</span>
+    </li>
+    <li>
+      <a href="https://github.com/buraksanlilar/PcseDatasetCreator">PCSE Dataset Creator</a>
+      <p>Türkiye bölgeleri için hava, toprak ve yönetim verisini birleştirip PCSE ürün simülasyonu veri setleri üreten araç.</p>
+      <span class="tags">Python · PCSE · Veri mühendisliği</span>
+    </li>
+    <li>
+      <a href="https://github.com/buraksanlilar/PortShipTracking">Port Ship Tracking</a>
+      <p>Liman gemi takip uygulaması.</p>
+      <span class="tags">TypeScript</span>
+    </li>
+  </ul>
+
+  <footer>© 2026 Burak Şanlılar</footer>
+</main>
+</body>
+</html>
