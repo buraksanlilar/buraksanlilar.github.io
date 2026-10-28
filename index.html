@@ -134,19 +134,24 @@ section.sec { padding: 104px 0; border-bottom: 1px solid var(--line); }
 .pk.up { fill: var(--green); } .pk.down { fill: var(--yellow); } .pk.db { fill: var(--arch-2); }
 @keyframes travel { from { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } to { offset-distance: 100%; opacity: 0; } }
 
-/* public project cards */
-.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.card { display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); color: var(--fg); text-decoration: none; overflow: hidden; transition: border-color 0.15s, transform 0.15s; }
-.card:hover { border-color: var(--arch); transform: translateY(-2px); }
-.card .shot { position: relative; height: 190px; padding: 18px 20px; border-bottom: 1px solid var(--line); background: linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 20px 20px, linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 20px 20px, #0c1118; overflow: hidden; }
-.card .shot pre { margin: 0; font: 11px/1.45 var(--mono); color: var(--arch-2); white-space: pre; opacity: 0.9; }
-.card .shot::after { content: ""; position: absolute; inset: auto 0 0 0; height: 60px; background: linear-gradient(transparent, #0c1118); }
-.card .shot .fign { position: absolute; right: 14px; top: 12px; z-index: 1; font: 10.5px var(--mono); color: var(--dim); }
-.card .body { display: grid; gap: 12px; align-content: start; padding: 24px; }
-.card .meta { display: flex; justify-content: space-between; gap: 12px; font: 12px var(--mono); color: var(--dim); }
-.card h3 { font: 700 21px var(--mono); letter-spacing: -0.01em; }
-.card p { color: var(--fg-2); font-size: 15px; }
-.card .more { font: 13px var(--mono); color: var(--arch-2); }
+/* public projects: big index rows + architecture peek that follows the cursor */
+.plist { border-top: 1px solid var(--line); }
+.prow { display: grid; grid-template-columns: 4ch minmax(0, 6fr) minmax(0, 4fr) 2ch; gap: 28px; align-items: center; padding: 36px 12px; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; transition: background-color 0.2s; }
+.prow .n { align-self: start; padding-top: 0.9em; font: 13px var(--mono); color: var(--dim); }
+.prow h3 { font: 700 clamp(1.6rem, 2.2vw + 0.8rem, 2.75rem) var(--mono); letter-spacing: -0.035em; transition: color 0.2s; }
+.prow .t { margin-top: 10px; color: var(--fg-2); font-size: 16px; }
+.prow .m { display: grid; gap: 12px; justify-items: start; }
+.prow .metric { font: 13px var(--mono); color: var(--arch-2); }
+.prow .go { font: 22px var(--mono); color: var(--dim); transition: transform 0.2s, color 0.2s; }
+.prow:hover { background: linear-gradient(90deg, var(--arch-wash), transparent 70%); }
+.prow:hover h3 { color: var(--arch-2); }
+.prow:hover .go { transform: translateX(6px); color: var(--arch); }
+.peek { position: fixed; left: 0; top: 0; z-index: 30; width: 440px; pointer-events: none; opacity: 0; scale: 0.94; transition: opacity 0.2s, scale 0.2s, translate 0.18s ease-out; }
+.peek.on { opacity: 1; scale: 1; }
+.peek.snap { transition: opacity 0.2s, scale 0.2s; }
+.peek .term-body { height: auto; padding: 16px 18px; }
+.peek pre { font-size: 11.5px; line-height: 1.45; color: var(--arch-2); }
+@media (hover: none), (max-width: 960px) { .peek { display: none; } }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .tags li { font: 12px var(--mono); color: var(--fg-2); background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; }
 .badge { font: 12px var(--mono); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line-2); }
@@ -221,7 +226,7 @@ footer a { color: var(--fg-2); }
 
 /* pixel trail: cells light up under the pointer and fade */
 #trail { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
+body > :not(#trail):not(.nav):not(.peek) { position: relative; z-index: 1; }
 
 @media (max-width: 960px) {
   .hero { padding: 48px 0 56px; }
@@ -230,7 +235,10 @@ body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
   .stats .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stat:nth-child(3) { border-left: 0; padding-left: 0; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .grid, .yml { grid-template-columns: minmax(0, 1fr); }
+  .yml { grid-template-columns: minmax(0, 1fr); }
+  .prow { grid-template-columns: 3ch minmax(0, 1fr) 2ch; gap: 14px; padding: 28px 4px; }
+  .prow .m { grid-column: 2; grid-row: 2; }
+  .prow .go { grid-column: 3; grid-row: 1; }
   .ls a { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
   .ls .perm { display: none; }
   .ls p { grid-column: 1 / -1; }
@@ -246,7 +254,8 @@ body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
   html { scroll-behavior: auto; }
   .cursor, .pk { animation: none; }
   .pk { display: none; }
-  .btn, .card, .ls a, .d-nav a { transition: none; }
+  .btn, .prow, .ls a, .d-nav a { transition: none; }
+  .peek { display: none; }
 }
   </style>
 </head>
@@ -356,9 +365,9 @@ body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
       <div class="sec-title">
         <div class="cmd"><b>$</b> ls ~/projeler/public</div>
         <h2><span class="idx">01</span>Projeler</h2>
-        <p>Açık kaynak projelerim. Kartlara tıklayınca detaylar, sonuçlar ve mimari açılır.</p>
+        <p>Açık kaynak projelerim. Üzerine gelince mimarisi, tıklayınca detaylar ve sonuçlar açılır.</p>
       </div>
-      <div class="grid" id="pubgrid">
+      <div class="plist" id="pubgrid">
         <noscript><p>Projeler: <a href="https://github.com/buraksanlilar">github.com/buraksanlilar</a></p></noscript>
       </div>
     </div>
@@ -415,6 +424,8 @@ body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
 <main id="detail" hidden>
   <div class="wrap" id="dwrap"></div>
 </main>
+
+<div class="term peek" id="peek" aria-hidden="true"></div>
 
 <footer><div class="wrap"><span>© 2026 burak şanlılar · arch btw</span><a href="#">↑ başa dön</a></div></footer>
 
@@ -572,17 +583,37 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 const tags = (list) => `<ul class="tags">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 
 // ---- home lists ------------------------------------------------------------
-document.getElementById('pubgrid').innerHTML = PROJECTS.filter((p) => p.vis === 'public').map((p, i) => `
-  <a class="card" href="#p/${p.id}">
-    <div class="shot" aria-hidden="true"><span class="fign">FIG. 0${i + 1}</span><pre>${esc(p.arch)}</pre></div>
-    <div class="body">
-      <div class="meta"><span class="badge pub">public</span><span>${esc(p.metric)}</span></div>
-      <h3>${esc(p.id)}</h3>
-      <p>${esc(p.title)}</p>
-      ${tags(p.stack)}
-      <span class="more">$ cd ${esc(p.id)} →</span>
-    </div>
+const pubgrid = document.getElementById('pubgrid');
+pubgrid.innerHTML = PROJECTS.filter((p) => p.vis === 'public').map((p, i) => `
+  <a class="prow" href="#p/${p.id}" data-id="${p.id}">
+    <span class="n">0${i + 1}</span>
+    <div><h3>${esc(p.id)}</h3><p class="t">${esc(p.title)}</p></div>
+    <div class="m"><span class="metric">▸ ${esc(p.metric)}</span>${tags(p.stack.slice(0, 4))}</div>
+    <span class="go" aria-hidden="true">→</span>
   </a>`).join('');
+
+// architecture window follows the cursor while hovering a row
+(() => {
+  const peek = document.getElementById('peek');
+  let cur = null;
+  const place = (e) => {
+    const w = peek.offsetWidth, h = peek.offsetHeight;
+    const x = e.clientX + 28 + w > innerWidth ? e.clientX - 28 - w : e.clientX + 28;
+    const y = Math.min(Math.max(12, e.clientY - h / 2), innerHeight - h - 12);
+    peek.style.translate = `${x}px ${y}px`;
+  };
+  pubgrid.addEventListener('pointermove', (e) => {
+    const row = e.target.closest('.prow');
+    if (!row) return;
+    if (row.dataset.id !== cur) {
+      const p = byId[cur = row.dataset.id];
+      peek.innerHTML = `<div class="term-head"><span><b>mimari.txt</b></span><span>${esc(p.id)}</span></div><div class="term-body"><pre>${esc(p.arch)}</pre></div>`;
+    }
+    if (!peek.classList.contains('on')) { peek.classList.add('snap'); place(e); peek.offsetWidth; peek.classList.remove('snap'); peek.classList.add('on'); }
+    else place(e);
+  });
+  pubgrid.addEventListener('pointerleave', () => { peek.classList.remove('on'); cur = null; });
+})();
 document.getElementById('privrows').innerHTML = PROJECTS.filter((p) => p.vis === 'private').map((p) => `
   <a href="#p/${p.id}"><span class="perm">drwx------</span><h3>${esc(p.id)}/</h3><p>${esc(p.title)}</p><span class="st">${esc(p.status)}</span></a>`).join('');
 document.getElementById('yml').innerHTML = STACK.map(([k, note, items]) => `
