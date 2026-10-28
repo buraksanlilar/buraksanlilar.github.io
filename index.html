@@ -4,22 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Burak Şanlılar</title>
-  <meta name="description" content="Burak Şanlılar. Makine öğrenmesi, IoT ve tarım teknolojileri üzerine uçtan uca sistemler.">
+  <meta name="description" content="Burak Şanlılar, bilgisayar mühendisi. Cihazdan buluta uçtan uca yazılım: backend, IoT, web ve mobil.">
   <meta property="og:title" content="Burak Şanlılar">
-  <meta property="og:description" content="Sensörden modele, modelden sahaya.">
+  <meta property="og:description" content="Cihazdan buluta, uçtan uca yazılım.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <style>
     :root {
-      --bg: #0b0d0c; --bg-2: #111513; --fg: #e8ece9; --muted: #8b958f; --line: #1f2622;
-      --accent: #7ee2a8; --accent-ink: #06210f; --glow: 126 226 168;
+      --bg: #0a0c0f; --bg-2: #10141a; --fg: #e6ebf2; --muted: #8a94a3; --line: #1d232c;
+      --accent: #6cb8ff; --accent-ink: #04121f; --glow: 108 184 255;
       --r: 14px;
     }
     @media (prefers-color-scheme: light) {
-      :root { --bg: #f4f6f5; --bg-2: #ffffff; --fg: #101412; --muted: #5b6660; --line: #dde3df;
-              --accent: #167a43; --accent-ink: #ffffff; --glow: 22 122 67; }
+      :root { --bg: #f3f5f8; --bg-2: #ffffff; --fg: #0e131a; --muted: #586373; --line: #dbe1e8;
+              --accent: #0b5fc2; --accent-ink: #ffffff; --glow: 11 95 194; }
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -38,6 +38,7 @@
 
     /* hero */
     .hero { min-height: calc(100dvh - 64px); display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: 48px 0 64px; }
+    .role { font: 500 13px/1 "Geist Mono", monospace; color: var(--accent); margin-bottom: 24px; display: inline-flex; gap: 8px; align-items: center; }
     .hero h1 { font-size: clamp(2.6rem, 5.6vw, 4.6rem); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 24px; font-weight: 600; }
     .hero h1 em { font-style: normal; color: var(--accent); }
     .hero p { font-size: 1.15rem; color: var(--muted); max-width: 44ch; margin: 0 0 36px; }
@@ -49,43 +50,41 @@
     .btn-primary:hover { transform: translateY(-2px); }
     .btn-ghost { border: 1px solid var(--line); }
     .btn-ghost:hover { border-color: var(--muted); }
-    .field { margin: 0; position: relative; aspect-ratio: 1 / 1; border-radius: var(--r); border: 1px solid var(--line); overflow: hidden;
-             background: radial-gradient(120% 90% at 70% 20%, rgb(var(--glow) / .10), transparent 60%), var(--bg-2); }
-    .field canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .field figcaption { position: absolute; left: 18px; bottom: 14px; font-size: 12px; color: var(--muted); }
+    .net { margin: 0; position: relative; aspect-ratio: 1 / 1; border-radius: var(--r); border: 1px solid var(--line); overflow: hidden;
+           background: radial-gradient(120% 90% at 70% 20%, rgb(var(--glow) / .10), transparent 60%), var(--bg-2); }
+    .net canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 
     /* sections */
     section { padding: 112px 0; }
     h2 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.03em; line-height: 1.05; margin: 0 0 16px; font-weight: 600; }
     .sub { color: var(--muted); max-width: 60ch; margin: 0 0 48px; }
 
-    /* bento */
-    .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(220px, auto); gap: 16px; }
+    /* capabilities bento */
+    .bento { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: minmax(230px, auto); gap: 16px; }
     .cell { position: relative; border: 1px solid var(--line); border-radius: var(--r); padding: 28px; background: var(--bg-2);
-            display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; isolation: isolate;
+            display: flex; flex-direction: column; justify-content: space-between; gap: 24px; overflow: hidden; isolation: isolate;
             transition: border-color .3s, transform .4s cubic-bezier(.16,1,.3,1); }
     .cell::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity .3s;
                     background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--glow) / .13), transparent 45%); }
     .cell:hover { border-color: rgb(var(--glow) / .45); transform: translateY(-3px); }
     .cell:hover::before { opacity: 1; }
-    .cell h3 { margin: 0 0 8px; font-size: 1.35rem; letter-spacing: -0.02em; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-    .cell h3 i { font-size: 1rem; color: var(--muted); transition: transform .3s, color .3s; }
-    .cell:hover h3 i { transform: translate(3px, -3px); color: var(--accent); }
+    .cell > i { font-size: 28px; color: var(--accent); }
+    .cell h3 { margin: 0 0 8px; font-size: 1.35rem; letter-spacing: -0.02em; font-weight: 600; }
     .cell p { margin: 0; color: var(--muted); max-width: 52ch; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
     .tags span { font: 12px/1 "Geist Mono", monospace; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
-    .c-agri { grid-column: span 4; grid-row: span 2;
-              background: linear-gradient(160deg, rgb(var(--glow) / .14), transparent 55%), var(--bg-2); }
-    .c-agri h3 { font-size: 2rem; }
-    .c-agri .big { font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--fg); max-width: 34ch; line-height: 1.4; margin-bottom: 12px; }
-    .c-yield { grid-column: span 2; grid-row: span 2; }
-    .stat { font-size: clamp(3.5rem, 6vw, 5rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1; color: var(--accent); }
-    .stat-lbl { color: var(--muted); font-size: 14px; margin-top: 6px; }
-    .c-inf { grid-column: span 3; }
-    .c-pcse { grid-column: span 3;
-              background-image: radial-gradient(rgb(var(--glow) / .16) 1px, transparent 1px); background-size: 18px 18px; background-color: var(--bg-2); }
+    .c-back { grid-column: span 4; grid-row: span 2; background: linear-gradient(160deg, rgb(var(--glow) / .14), transparent 55%), var(--bg-2); }
+    .c-back h3 { font-size: 2rem; }
+    .c-back .big { font-size: clamp(1.15rem, 2vw, 1.45rem); color: var(--fg); max-width: 36ch; line-height: 1.4; margin-bottom: 12px; }
+    .flow { font: 500 clamp(13px, 1.4vw, 15px)/1.9 "Geist Mono", monospace; color: var(--muted); }
+    .flow b { color: var(--fg); font-weight: 500; }
+    .flow i { color: var(--accent); font-style: normal; padding: 0 6px; }
+    .c-iot { grid-column: span 2; grid-row: span 2;
+             background-image: radial-gradient(rgb(var(--glow) / .18) 1px, transparent 1px); background-size: 18px 18px; background-color: var(--bg-2); }
+    .c-web { grid-column: span 3; }
+    .c-data { grid-column: span 3; }
 
-    /* private */
+    /* experience */
     .private { display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; }
     .pv { padding: 28px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
     .pv > i { font-size: 22px; color: var(--accent); margin-top: 3px; }
@@ -115,7 +114,7 @@
 
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 40px; }
-      .field { aspect-ratio: 4 / 3; }
+      .net { aspect-ratio: 4 / 3; }
       .bento { grid-template-columns: 1fr; }
       .bento .cell { grid-column: auto; grid-row: auto; }
       .private { grid-template-columns: 1fr; }
@@ -137,8 +136,8 @@
   <div class="wrap">
     <a href="#" class="logo">Burak Şanlılar</a>
     <ul>
-      <li><a href="#projeler">Projeler</a></li>
-      <li><a href="#is">Profesyonel</a></li>
+      <li><a href="#yetkinlikler">Yetkinlikler</a></li>
+      <li><a href="#deneyim">Deneyim</a></li>
       <li><a href="#iletisim">İletişim</a></li>
     </ul>
   </div>
@@ -148,62 +147,63 @@
   <div class="wrap">
     <header class="hero">
       <div>
-        <h1 class="rv">Sensörden modele, <em>modelden sahaya.</em></h1>
-        <p class="rv" style="--i:1">Makine öğrenmesi ve IoT ile tarlada ve endüstride çalışan uçtan uca sistemler kuruyorum.</p>
-        <div class="ctas rv" style="--i:2">
-          <a class="btn btn-primary" href="#projeler">Projeler <i class="ph ph-arrow-down"></i></a>
+        <div class="role rv"><i class="ph ph-terminal-window"></i> Bilgisayar Mühendisi</div>
+        <h1 class="rv" style="--i:1">Cihazdan buluta, <em>uçtan uca yazılım.</em></h1>
+        <p class="rv" style="--i:2">Bağlı cihazlardan bulut backend'lerine ve mobil arayüzlere kadar sistemler tasarlıyor ve geliştiriyorum.</p>
+        <div class="ctas rv" style="--i:3">
+          <a class="btn btn-primary" href="#yetkinlikler">Neler yapıyorum <i class="ph ph-arrow-down"></i></a>
           <a class="btn btn-ghost" href="#iletisim">İletişim</a>
         </div>
       </div>
-      <figure class="field rv" style="--i:3" aria-label="Toprak nemi alanını temsil eden etkileşimli animasyon">
-        <canvas id="field"></canvas>
-        <figcaption class="mono">imleci gezdir: sulama</figcaption>
+      <figure class="net rv" style="--i:4" aria-label="Cihazlar, broker ve servisler arasında akan mesajları gösteren animasyon">
+        <canvas id="net"></canvas>
       </figure>
     </header>
   </div>
 
-  <section id="projeler">
+  <section id="yetkinlikler">
     <div class="wrap">
-      <h2 class="rv">Açık kaynak projeler</h2>
-      <p class="sub rv">Tarım verisi, ürün simülasyonu ve sosyal medya analitiği üzerine çalışmalar.</p>
+      <h2 class="rv">Neler yapıyorum</h2>
+      <p class="sub rv">Bir sistemin her katmanında çalışıyorum: cihazın gönderdiği ilk mesajdan kullanıcının ekranındaki son piksele kadar.</p>
       <div class="bento">
-        <a class="cell c-agri rv" href="https://github.com/buraksanlilar/agriflow">
+        <div class="cell c-back rv">
+          <i class="ph ph-database"></i>
           <div>
-            <h3>AgriFlow <i class="ph ph-arrow-up-right"></i></h3>
-            <p class="big">Toprak nemi sensörlerinden pompaya kadar otomatik, hassas sulama.</p>
-            <p>MQTT ile gelen sensör verisi, WOFOST simülasyonlarıyla eğitilmiş LightGBM modellerine gidiyor. Sistem günlük hedef nemi hesaplıyor, sulama kararını veriyor ve pompaları kendisi yönetiyor.</p>
+            <h3>Backend ve veri</h3>
+            <p class="big">Gerçek zamanlı veri alan, saklayan ve sunan servisler.</p>
+            <p>API tasarımı, zaman serisi veritabanları, kimlik doğrulama ve tek sunucudan ölçeklenebilir dağıtıma kadar backend mimarisi.</p>
+            <div class="tags"><span>.NET</span><span>Node.js</span><span>Fastify</span><span>PostgreSQL</span><span>TimescaleDB</span><span>Docker</span></div>
           </div>
-          <div class="tags"><span>IoT</span><span>MQTT</span><span>LightGBM</span><span>Python</span></div>
-        </a>
-        <a class="cell c-yield rv" style="--i:1" href="https://github.com/buraksanlilar/crop-yield-forecast">
+        </div>
+        <div class="cell c-iot rv" style="--i:1">
+          <i class="ph ph-broadcast"></i>
+          <div class="flow"><b>cihaz</b><i>→</i>MQTT<br><b>broker</b><i>→</i>servis<br><b>veritabanı</b><i>→</i>API<br><b>uygulama</b></div>
           <div>
-            <div class="stat">466M</div>
-            <div class="stat-lbl">saatlik satır, 23 ürün, 71 lokasyon</div>
+            <h3>IoT ve gerçek zamanlı</h3>
+            <p>Cihaz sözleşmeleri, telemetri, uzaktan komut ve canlı izleme.</p>
           </div>
+        </div>
+        <div class="cell c-web rv">
+          <i class="ph ph-devices"></i>
           <div>
-            <h3>Crop Yield Forecast <i class="ph ph-arrow-up-right"></i></h3>
-            <p>Türkiye genelinde 2014-2024 verisiyle ürün verimi tahmini.</p>
+            <h3>Web ve mobil</h3>
+            <p>Mağaza gerektirmeden telefonda uygulama gibi çalışan PWA'lar ve masaüstü araçları.</p>
+            <div class="tags"><span>Angular</span><span>Ionic</span><span>TypeScript</span><span>Tauri</span></div>
           </div>
-        </a>
-        <a class="cell c-inf rv" href="https://github.com/buraksanlilar/Multi-Modal-Influencer-Analytics">
+        </div>
+        <div class="cell c-data rv" style="--i:1">
+          <i class="ph ph-brain"></i>
           <div>
-            <h3>Influencer Analytics <i class="ph ph-arrow-up-right"></i></h3>
-            <p>Instagram ve TikTok influencer'ları için veri toplama, skorlama ve marka eşleştirme platformu.</p>
+            <h3>Veri ve makine öğrenmesi</h3>
+            <p>Büyük veri setlerinden tahmin modelleri kurmak ve onları üretimdeki sistemlere bağlamak.</p>
+            <div class="tags"><span>Python</span><span>Pandas</span><span>scikit-learn</span><span>LightGBM</span></div>
           </div>
-          <div class="tags"><span>Scraping</span><span>ML</span><span>Streamlit</span></div>
-        </a>
-        <a class="cell c-pcse rv" style="--i:1" href="https://github.com/buraksanlilar/PcseDatasetCreator">
-          <div>
-            <h3>PCSE Dataset Creator <i class="ph ph-arrow-up-right"></i></h3>
-            <p>Hava, toprak ve yönetim verisini birleştirip bölgesel ürün simülasyonu veri setleri üretiyor.</p>
-          </div>
-          <div class="tags"><span>Python</span><span>PCSE</span><span>Veri</span></div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="is">
+  <section id="deneyim">
     <div class="wrap">
       <h2 class="rv">Profesyonel işler</h2>
       <div class="lock rv"><i class="ph ph-lock-simple"></i> Kaynak kodları gizli, burada yalnızca özet var.</div>
@@ -230,8 +230,8 @@
 
   <div class="marquee" aria-label="Kullandığım teknolojiler">
     <div class="track">
-      <span>Python</span><span>LightGBM</span><span>scikit-learn</span><span>Pandas</span><span>MQTT</span><span>.NET</span><span>PostgreSQL</span><span>TimescaleDB</span><span>Angular</span><span>Ionic</span><span>TypeScript</span><span>Node.js</span><span>Fastify</span><span>Tauri</span><span>Streamlit</span><span>Java</span>
-      <span aria-hidden="true">Python</span><span aria-hidden="true">LightGBM</span><span aria-hidden="true">scikit-learn</span><span aria-hidden="true">Pandas</span><span aria-hidden="true">MQTT</span><span aria-hidden="true">.NET</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">TimescaleDB</span><span aria-hidden="true">Angular</span><span aria-hidden="true">Ionic</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Node.js</span><span aria-hidden="true">Fastify</span><span aria-hidden="true">Tauri</span><span aria-hidden="true">Streamlit</span><span aria-hidden="true">Java</span>
+      <span>.NET</span><span>C#</span><span>Node.js</span><span>TypeScript</span><span>Angular</span><span>Ionic</span><span>PostgreSQL</span><span>TimescaleDB</span><span>MQTT</span><span>Docker</span><span>Python</span><span>Java</span><span>Git</span><span>Linux</span>
+      <span aria-hidden="true">.NET</span><span aria-hidden="true">C#</span><span aria-hidden="true">Node.js</span><span aria-hidden="true">TypeScript</span><span aria-hidden="true">Angular</span><span aria-hidden="true">Ionic</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">TimescaleDB</span><span aria-hidden="true">MQTT</span><span aria-hidden="true">Docker</span><span aria-hidden="true">Python</span><span aria-hidden="true">Java</span><span aria-hidden="true">Git</span><span aria-hidden="true">Linux</span>
     </div>
   </div>
 
@@ -264,33 +264,80 @@
     c.style.setProperty('--my', (e.clientY - r.top) + 'px');
   }));
 
-  // hero: moisture field. Dots = soil cells, pointer = irrigation, moisture slowly evaporates.
+  // hero: devices on the rim send packets to a central broker, broker fans out to services.
+  // Pointer pulls nearby devices and makes them transmit.
   (() => {
-    const cv = document.getElementById('field'), ctx = cv.getContext('2d');
-    const GAP = 18;
-    let w, h, cols, rows, m, px = -1e4, py = -1e4, visible = true;
-    const accent = () => getComputedStyle(document.documentElement).getPropertyValue('--glow').trim().split(' ').map(Number);
-    let rgb = accent();
-    matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => { rgb = accent(); });
+    const cv = document.getElementById('net'), ctx = cv.getContext('2d');
+    let w, h, nodes = [], packets = [], px = -1e4, py = -1e4, visible = true, last = 0;
+    const tok = () => getComputedStyle(document.documentElement);
+    let rgb, fg;
+    const colors = () => { const s = tok(); rgb = s.getPropertyValue('--glow').trim().split(' ').map(Number); fg = s.getPropertyValue('--muted').trim(); };
+    colors();
+    matchMedia('(prefers-color-scheme: light)').addEventListener('change', colors);
+    const rnd = (a, b) => a + Math.random() * (b - a);
 
-    function size() {
+    function build() {
       const dpr = Math.min(devicePixelRatio || 1, 2), r = cv.getBoundingClientRect();
       w = r.width; h = r.height; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.ceil(w / GAP) + 1; rows = Math.ceil(h / GAP) + 1;
-      m = new Float32Array(cols * rows);
+      const cx = w / 2, cy = h / 2, R = Math.min(w, h);
+      nodes = [{ kind: 'broker', x: cx, y: cy, hx: cx, hy: cy }];
+      for (let i = 0; i < 4; i++) {           // services
+        const a = i / 4 * 6.283 + 0.785;
+        nodes.push({ kind: 'svc', hx: cx + Math.cos(a) * R * 0.2, hy: cy + Math.sin(a) * R * 0.2 });
+      }
+      const n = Math.round(R / 22);           // devices
+      for (let i = 0; i < n; i++) {
+        const a = i / n * 6.283 + rnd(-0.1, 0.1), d = R * rnd(0.34, 0.46);
+        nodes.push({ kind: 'dev', hx: cx + Math.cos(a) * d, hy: cy + Math.sin(a) * d, ph: rnd(0, 6.283) });
+      }
+      nodes.forEach(n => { n.x = n.hx; n.y = n.hy; });
+      packets = [];
     }
+    const svcs = () => nodes.filter(n => n.kind === 'svc');
+
     function frame(t) {
+      const dt = Math.min(50, t - last); last = t;
       if (visible) {
         ctx.clearRect(0, 0, w, h);
-        for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-          const i = y * cols + x, X = x * GAP, Y = y * GAP;
-          const d = Math.hypot(X - px, Y - py);
-          if (d < 90) m[i] = Math.min(1, m[i] + (1 - d / 90) * 0.12);
-          m[i] *= 0.985;
-          const base = 0.18 + 0.14 * Math.sin(x * 0.35 + t * 0.0006) * Math.cos(y * 0.3 - t * 0.0004);
-          const v = Math.max(0, Math.min(1, base + m[i]));
-          ctx.fillStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${0.15 + v * 0.85})`;
-          ctx.beginPath(); ctx.arc(X, Y, 0.8 + v * 3.2, 0, 6.283); ctx.fill();
+        const broker = nodes[0];
+        for (const n of nodes) {
+          if (n.kind === 'broker') continue;
+          const d = Math.hypot(n.hx - px, n.hy - py), pull = d < 120 ? (1 - d / 120) * 18 : 0;
+          const tx = n.hx + (n.ph ? Math.sin(t * 0.0007 + n.ph) * 4 : 0) + (px - n.hx) / (d || 1) * pull;
+          const ty = n.hy + (n.ph ? Math.cos(t * 0.0006 + n.ph) * 4 : 0) + (py - n.hy) / (d || 1) * pull;
+          n.x += (tx - n.x) * 0.08; n.y += (ty - n.y) * 0.08;
+          n.hot = d < 120;
+          if (n.kind === 'dev' && Math.random() < (n.hot ? 0.06 : 0.004)) packets.push({ a: n, b: broker, p: 0, v: rnd(0.0007, 0.0012) });
+        }
+        // edges
+        ctx.lineWidth = 1;
+        for (const n of nodes) {
+          if (n.kind === 'broker') continue;
+          ctx.strokeStyle = `rgba(${rgb},${n.hot ? 0.45 : n.kind === 'svc' ? 0.3 : 0.12})`;
+          ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(broker.x, broker.y); ctx.stroke();
+        }
+        // packets
+        packets = packets.filter(k => {
+          k.p += k.v * dt;
+          if (k.p >= 1) {
+            if (k.b === broker) { const s = svcs(); packets.push({ a: broker, b: s[(Math.random() * s.length) | 0], p: 0, v: 0.0016 }); }
+            else k.b.flash = 1;
+            return false;
+          }
+          const x = k.a.x + (k.b.x - k.a.x) * k.p, y = k.a.y + (k.b.y - k.a.y) * k.p;
+          ctx.fillStyle = `rgb(${rgb})`; ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 6.283); ctx.fill();
+          return true;
+        });
+        // nodes
+        for (const n of nodes) {
+          n.flash = Math.max(0, (n.flash || 0) - dt * 0.003);
+          const r = n.kind === 'broker' ? 9 : n.kind === 'svc' ? 6 : 3;
+          if (n.kind !== 'dev') {
+            ctx.strokeStyle = `rgba(${rgb},${0.5 + n.flash * 0.5})`; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.arc(n.x, n.y, r + 5 + n.flash * 6, 0, 6.283); ctx.stroke();
+          }
+          ctx.fillStyle = n.kind === 'dev' && !n.hot ? fg : `rgb(${rgb})`;
+          ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 6.283); ctx.fill();
         }
       }
       if (!reduce) requestAnimationFrame(frame);
@@ -298,8 +345,8 @@
     cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; });
     cv.addEventListener('pointerleave', () => { px = py = -1e4; });
     new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(cv);
-    new ResizeObserver(() => { size(); if (reduce) frame(0); }).observe(cv);
-    size(); requestAnimationFrame(frame);
+    new ResizeObserver(() => { build(); if (reduce) frame(0); }).observe(cv);
+    build(); requestAnimationFrame(frame);
   })();
 </script>
 </body>
