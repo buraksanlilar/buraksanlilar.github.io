@@ -2,157 +2,247 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
-  <title>burak@archlinux</title>
-  <meta name="description" content="Burak Şanlılar. Projelerini gezebileceğin bir terminal.">
-  <meta property="og:title" content="burak@archlinux">
-  <meta property="og:description" content="Projelerimi gezebileceğin bir terminal.">
-  <meta name="theme-color" content="#0d1117">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Burak Şanlılar</title>
+  <meta name="description" content="Burak Şanlılar. Projeler, mimariler ve iletişim.">
+  <meta property="og:title" content="Burak Şanlılar">
+  <meta property="og:description" content="Projeler, mimariler ve iletişim.">
+  <meta name="theme-color" content="#0b0e13">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
 :root {
-  --bg: #0d1117; --bg-2: #161b22; --bar: #0a0d12; --line: #232a33;
-  --fg: #c9d1d9; --dim: #6e7681; --arch: #1793d1; --arch-2: #5fb4e6;
+  --bg: #0b0e13; --bg-2: #11161d; --bg-3: #171d26; --line: #212a35; --line-2: #2d3846;
+  --fg: #dde3ea; --fg-2: #aab4c0; --dim: #74808e;
+  --arch: #1793d1; --arch-2: #4fb3e8; --arch-wash: rgba(23, 147, 209, 0.12);
   --green: #8ae234; --yellow: #e5c07b; --red: #f47067;
-  --font: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --wrap: 1180px; --r: 6px;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; height: 100%; overflow-x: clip; }
-body { background: var(--bg); color: var(--fg); font: 400 15px/1.6 var(--font); display: flex; flex-direction: column; }
-::selection { background: var(--arch); color: var(--bg); }
+html, body { margin: 0; overflow-x: clip; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--sans); }
+::selection { background: var(--arch); color: #fff; }
 a { color: var(--arch-2); }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--arch); outline-offset: 2px; }
+h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -0.02em; overflow-wrap: break-word; min-width: 0; }
+p { margin: 0; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+:focus-visible { outline: 2px solid var(--arch); outline-offset: 2px; }
 
-/* waybar */
-.bar { flex: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; height: 30px; padding: 0 12px; background: var(--bar); border-bottom: 1px solid var(--line); font-size: 13px; color: var(--dim); }
-.bar .ws { display: flex; gap: 2px; }
-.bar .ws span { padding: 0 8px; }
-.bar .ws .on { background: var(--arch); color: var(--bg); font-weight: 700; }
-.bar .r { display: flex; gap: 14px; white-space: nowrap; }
-.bar .r b { color: var(--arch-2); font-weight: 400; }
+/* nav */
+.nav { position: sticky; top: 0; z-index: 10; background: rgba(11, 14, 19, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.nav .wrap { height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { font: 700 15px var(--mono); color: var(--fg); text-decoration: none; white-space: nowrap; }
+.logo span { color: var(--arch); }
+.nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; font: 14px var(--mono); }
+.nav ul a { color: var(--fg-2); text-decoration: none; }
+.nav ul a:hover { color: var(--fg); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: var(--r); border: 1px solid var(--line-2); background: var(--bg-2); color: var(--fg); font: 500 15px var(--sans); text-decoration: none; cursor: pointer; white-space: nowrap; transition: border-color 0.15s, background-color 0.15s, transform 0.1s; }
+.btn:hover { border-color: var(--arch); }
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--arch); border-color: var(--arch); color: #fff; }
+.btn--primary:hover { background: var(--arch-2); border-color: var(--arch-2); }
+.ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* hero */
+.hero { padding: 72px 0 96px; border-bottom: 1px solid var(--line); background: radial-gradient(900px 400px at 85% 0%, var(--arch-wash), transparent 70%); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(2.75rem, 5vw + 1rem, 5rem); font-weight: 700; }
+.hero h1 span { display: block; color: var(--arch); }
+.hero .copy { display: grid; gap: 28px; }
+.hero .hint { font: 13px var(--mono); color: var(--dim); }
+.hero .hint kbd { font: inherit; color: var(--arch-2); border: 1px solid var(--line-2); border-radius: 4px; padding: 1px 6px; }
 
 /* terminal */
-#term { flex: 1; overflow-y: auto; padding: 16px 20px 24px; cursor: text; }
-#out > div { white-space: pre-wrap; overflow-wrap: anywhere; }
-pre { margin: 0; font: inherit; white-space: pre; overflow-x: auto; }
-.prompt { color: var(--fg); white-space: nowrap; }
-.prompt .u { color: var(--arch); font-weight: 700; }
-.prompt .p { color: var(--arch-2); }
-.line { display: flex; align-items: baseline; }
-.line .prompt { margin-right: 0.6ch; }
-#in { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--fg); font: inherit; padding: 0; caret-color: var(--arch); }
-.dim { color: var(--dim); } .acc { color: var(--arch); } .acc2 { color: var(--arch-2); } .ok { color: var(--green); } .warn { color: var(--yellow); } .err { color: var(--red); } b { font-weight: 700; }
-.h { color: var(--arch); font-weight: 700; }
+.term { border: 1px solid var(--line-2); border-radius: var(--r); background: var(--bg-2); overflow: hidden; box-shadow: 0 24px 60px -30px rgba(23, 147, 209, 0.35); }
+.term-head { display: flex; justify-content: space-between; padding: 8px 14px; border-bottom: 1px solid var(--line); font: 12px var(--mono); color: var(--dim); background: var(--bg-3); }
+.term-head b { color: var(--arch-2); font-weight: 400; }
+.term-body { height: 380px; overflow-y: auto; padding: 14px 16px; font: 13.5px/1.65 var(--mono); cursor: text; }
+.term-body .o { white-space: pre-wrap; overflow-wrap: anywhere; margin-bottom: 6px; }
+.term-body pre { margin: 0; font: inherit; }
+.ps { white-space: nowrap; }
+.ps .u { color: var(--arch); font-weight: 700; }
+.ps .p { color: var(--arch-2); }
+.in-line { display: flex; align-items: baseline; gap: 0.6ch; }
+#tin { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: var(--fg); font: inherit; padding: 0; caret-color: var(--arch); }
+.t-acc { color: var(--arch); } .t-ok { color: var(--green); } .t-err { color: var(--red); } .t-dim { color: var(--dim); }
+.fetch { display: flex; gap: 24px; }
+.fetch pre { color: var(--arch); font-weight: 700; }
 .run { background: none; border: 0; padding: 0; font: inherit; color: var(--arch-2); text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; }
-.run:hover { color: var(--fg); background: var(--bg-2); }
-.chips-out { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.chips-out .run { border: 1px solid var(--line); padding: 2px 10px; text-decoration: none; }
-.chips-out .run:hover { border-color: var(--arch); }
-.block { margin-bottom: 14px; }
-.fetch { display: flex; gap: 32px; align-items: flex-start; }
-.fetch .logo { color: var(--arch); font-weight: 700; flex: none; }
-.swatch { display: inline-block; width: 2.4ch; height: 1em; vertical-align: -0.15em; }
+.run:hover { color: var(--fg); }
+.term-dock { display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--line); overflow-x: auto; }
+.term-dock button { flex: none; background: var(--bg-3); color: var(--fg-2); border: 1px solid var(--line); border-radius: 4px; font: 12px/1 var(--mono); padding: 7px 10px; cursor: pointer; }
+.term-dock button:hover { border-color: var(--arch); color: var(--arch-2); }
 
-/* quick commands, mostly for phones */
-.dock { flex: none; display: flex; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--line); background: var(--bar); overflow-x: auto; }
-.dock button { flex: none; background: var(--bg-2); color: var(--fg); border: 1px solid var(--line); font: 13px/1 var(--font); padding: 8px 12px; cursor: pointer; }
-.dock button:hover { border-color: var(--arch); color: var(--arch-2); }
-.dock button:active { background: var(--arch); color: var(--bg); }
+/* sections */
+section.sec { padding: 96px 0; border-bottom: 1px solid var(--line); }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px 24px; margin-bottom: 40px; }
+.sec-head h2 { font-size: clamp(2rem, 2.5vw + 1rem, 3rem); }
+.sec-head p { color: var(--dim); font: 14px var(--mono); }
 
-noscript { display: block; padding: 20px; }
+/* public projects */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.card { display: grid; gap: 14px; align-content: start; padding: 28px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); color: var(--fg); text-decoration: none; transition: border-color 0.15s, background-color 0.15s; }
+.card:hover { border-color: var(--arch); background: var(--bg-3); }
+.card .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font: 12px var(--mono); color: var(--dim); }
+.card h3 { font: 700 22px var(--mono); letter-spacing: -0.01em; }
+.card p { color: var(--fg-2); }
+.card .more { font: 13px var(--mono); color: var(--arch-2); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.tags li { font: 12px var(--mono); color: var(--fg-2); background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; }
+.badge { font: 12px var(--mono); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--line-2); }
+.badge.pub { color: var(--green); border-color: rgba(138, 226, 52, 0.35); }
+.badge.priv { color: var(--yellow); border-color: rgba(229, 192, 123, 0.35); }
 
-@media (max-width: 720px) {
-  body { font-size: 13px; }
-  #term { padding: 12px; }
-  .fetch .logo { display: none; }
-  .perm { display: none; }
-  .pad { display: block; height: 0; overflow: hidden; }
-  .ttl { padding-left: 2ch; }
-  .bar .ws span:not(.on), .bar .host { display: none; }
+/* private rows */
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.rows a { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) auto; gap: 24px; align-items: center; padding: 22px 8px; border-bottom: 1px solid var(--line); color: var(--fg); text-decoration: none; transition: background-color 0.15s; }
+.rows a:hover { background: var(--bg-2); }
+.rows h3 { font: 700 17px var(--mono); }
+.rows p { color: var(--fg-2); font-size: 15px; }
+
+/* contact */
+.contact h2 { font-size: clamp(2.5rem, 4vw + 1rem, 4.5rem); }
+.mail { display: inline-block; margin: 28px 0; font: 700 clamp(1.1rem, 2vw + 0.6rem, 2.25rem) var(--mono); color: var(--arch-2); overflow-wrap: anywhere; }
+footer { padding: 28px 0; color: var(--dim); font: 13px var(--mono); }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+footer a { color: var(--fg-2); }
+
+/* project page */
+#detail { padding: 56px 0 96px; border-bottom: 1px solid var(--line); }
+.back { font: 14px var(--mono); color: var(--fg-2); text-decoration: none; }
+.back:hover { color: var(--arch-2); }
+.d-head { display: grid; gap: 16px; margin: 32px 0 40px; padding-bottom: 40px; border-bottom: 1px solid var(--line); justify-items: start; }
+.d-head h1 { font: 700 clamp(2rem, 4vw + 1rem, 4rem) var(--mono); letter-spacing: -0.03em; }
+.d-head .sub { font-size: 1.25rem; color: var(--fg-2); }
+.d-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 56px; align-items: start; }
+.d-main { display: grid; gap: 40px; min-width: 0; }
+.d-main h2 { font: 700 13px var(--mono); color: var(--dim); letter-spacing: 0; margin-bottom: 14px; }
+.d-main p { color: var(--fg-2); font-size: 17px; max-width: 65ch; }
+.d-main ul { margin: 0; padding-left: 1.2em; color: var(--fg-2); display: grid; gap: 6px; }
+.d-main li::marker { color: var(--arch); }
+.facts { width: 100%; border-collapse: collapse; font: 14px var(--mono); }
+.facts td { padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--fg-2); vertical-align: top; }
+.facts td:first-child { color: var(--fg); padding-right: 20px; }
+.arch { padding: 20px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); color: var(--arch-2); font: 13px/1.55 var(--mono); overflow-x: auto; margin: 0; }
+.d-side { position: sticky; top: 84px; display: grid; gap: 16px; padding: 24px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg-2); }
+.d-side h2 { font: 700 13px var(--mono); color: var(--dim); }
+.d-side .note { font-size: 14px; color: var(--fg-2); }
+.d-nav { display: flex; justify-content: space-between; gap: 16px; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font: 14px var(--mono); }
+.d-nav a { color: var(--fg-2); text-decoration: none; }
+.d-nav a:hover { color: var(--arch-2); }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 900px) {
+  .hero { padding: 48px 0 64px; }
+  .hero .wrap, .d-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .term-body { height: 340px; font-size: 12.5px; }
+  .fetch pre { display: none; }
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .rows a { grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: start; }
+  .d-side { position: static; }
+  section.sec { padding: 72px 0; }
 }
+@media (max-width: 520px) { .nav ul li:first-child { display: none; } .card { padding: 22px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .card, .rows a { transition: none; } }
   </style>
 </head>
 <body>
 
-<div class="bar" aria-hidden="true">
-  <div class="ws"><span class="on">1</span><span>2</span><span>3</span><span>4</span></div>
-  <div class="r"><span class="host"><b>arch</b>linux</span><span id="clock"></span></div>
-</div>
-
-<main id="term" aria-label="Terminal">
-  <div id="out" role="log" aria-live="polite"></div>
-  <div class="line">
-    <label for="in" class="prompt" id="ps1"></label>
-    <input id="in" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" aria-label="Komut yaz">
-  </div>
-  <noscript>
-    <p>Bu terminal JavaScript ile çalışıyor. Projeler:</p>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#"><span>~/</span>burak</a>
     <ul>
-      <li><a href="https://github.com/buraksanlilar/agriflow">agriflow</a>: IoT ile hassas sulama ve verim tahmini</li>
-      <li><a href="https://github.com/buraksanlilar/crop-yield-forecast">crop-yield-forecast</a>: Türkiye geneli verim tahmini</li>
-      <li><a href="https://github.com/buraksanlilar/PcseDatasetCreator">pcse-dataset-creator</a>: bitki simülasyonu veri seti üreticisi</li>
-      <li><a href="https://github.com/buraksanlilar/Multi-Modal-Influencer-Analytics">influencer-analytics</a>: Instagram ve TikTok analitiği</li>
+      <li><a href="#projeler">projeler</a></li>
+      <li><a href="#is">iş</a></li>
+      <li><a href="#iletisim">iletişim</a></li>
     </ul>
-    <p>İletişim: <a href="mailto:sanlilarburak@gmail.com">sanlilarburak@gmail.com</a></p>
-  </noscript>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="copy">
+        <h1>Burak <span>Şanlılar</span></h1>
+        <div class="ctas">
+          <a class="btn btn--primary" href="#projeler">Projelere bak</a>
+          <a class="btn" href="mailto:sanlilarburak@gmail.com">E-posta</a>
+          <a class="btn" href="https://github.com/buraksanlilar" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <p class="hint">Yandaki terminali de kullanabilirsin: <kbd>ls</kbd> <kbd>cd agriflow</kbd> <kbd>help</kbd></p>
+      </div>
+      <div class="term" id="term">
+        <div class="term-head"><span><b>burak@archlinux</b>: ~</span><span>bash</span></div>
+        <div class="term-body" id="tbody">
+          <div id="tout" role="log" aria-live="polite"></div>
+          <div class="in-line"><label for="tin" id="tps" class="ps"></label><input id="tin" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" aria-label="Terminal komutu"></div>
+        </div>
+        <div class="term-dock" aria-label="Hazır komutlar">
+          <button data-cmd="help">help</button><button data-cmd="ls">ls</button><button data-cmd="neofetch">neofetch</button><button data-cmd="contact">contact</button><button data-cmd="clear">clear</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="projeler">
+    <div class="wrap">
+      <div class="sec-head"><h2>Projeler</h2><p>~/public, kodları GitHub’da</p></div>
+      <div class="grid" id="pubgrid">
+        <noscript><p>Projeler: <a href="https://github.com/buraksanlilar">github.com/buraksanlilar</a></p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="is">
+    <div class="wrap">
+      <div class="sec-head"><h2>Profesyonel işler</h2><p>~/private, kod gizli, yalnızca özet</p></div>
+      <ul class="rows" id="privrows"></ul>
+    </div>
+  </section>
+
+  <section class="sec contact" id="iletisim">
+    <div class="wrap">
+      <h2>Konuşalım.</h2>
+      <a class="mail" href="mailto:sanlilarburak@gmail.com">sanlilarburak@gmail.com</a>
+      <div class="ctas"><a class="btn" href="https://github.com/buraksanlilar" target="_blank" rel="noopener">GitHub</a></div>
+    </div>
+  </section>
 </main>
 
-<nav class="dock" aria-label="Hızlı komutlar">
-  <button data-cmd="help">help</button>
-  <button data-cmd="ls">ls</button>
-  <button data-cmd="cd ~">cd ~</button>
-  <button data-cmd="neofetch">neofetch</button>
-  <button data-cmd="contact">contact</button>
-  <button data-cmd="clear">clear</button>
-</nav>
+<main id="detail" hidden>
+  <div class="wrap" id="dwrap"></div>
+</main>
 
-<template id="logo">                   -`
-                  .o+`
-                 `ooo/
-                `+oooo:
-               `+oooooo:
-               -+oooooo+:
-             `/:-:++oooo+:
-            `/++++/+++++++:
-           `/++++++++++++++:
-          `/+++ooooooooooooo/`
-         ./ooosssso++osssssso+`
-        .oossssso-````/ossssss+`
-       -osssssso.      :ssssssso.
-      :osssssss/        osssso+++.
-     /ossssssss/        +ssssooo/-
-   `/ossssso+/:-        -:/+osssso+-
-  `+sso+:-`                 `.-/+oso:
- `++:.                           `-/+/
- .`                                 `/</template>
+<footer><div class="wrap"><span>burak şanlılar, 2026</span><a href="#">başa dön</a></div></footer>
 
 <script>
 const GH = 'https://github.com/buraksanlilar/';
 const MAIL = 'sanlilarburak@gmail.com';
 
 // ---- content -------------------------------------------------------------
-const PROJECTS = {
-  public: {
-    'agriflow': {
-      repo: 'agriflow',
-      title: 'IoT ile hassas sulama ve verim tahmini',
-      stack: 'Python 3.11, MQTT (Mosquitto), LightGBM, FastAPI, HTMX, SQLite',
-      readme: [
-        'Tarladaki sensörler toprak nemi ve hava ölçümlerini MQTT ile gönderir.',
-        'Karar motoru, ürüne özel günlük toprak nemi profiline bakıp',
-        '<span class="err">CRITICAL</span> / <span class="warn">IRRIGATE</span> / <span class="ok">NORMAL</span> / STOP kararı verir ve pompaya komut yayınlar.',
-        '',
-        '<b>Neler yapıyor</b>',
-        '  • 22 ürün için 30, 60 ve 90 günlük verim tahmini (LightGBM)',
-        '  • Sentinel-2 uydu indeksleri: NDVI, LAI, NDWI, NDRE',
-        '  • Eksik sensör verisini Open-Meteo hava verisiyle tamamlar',
-        '  • Her sabah çalışan günlük tahmin hattı, sonuçlar SQLite’ta',
-        '  • Hasattan sonra modeli tarlaya göre yeniden ayarlar (retrain.py)',
-        '  • FastAPI + HTMX panel: canlı izleme, tahmin geçmişi, tarla profili',
-      ],
-      arch: `sensörler
+const PROJECTS = [
+  {
+    id: 'agriflow', vis: 'public', repo: 'agriflow',
+    title: 'IoT ile hassas sulama ve verim tahmini',
+    summary: 'Tarladaki sensörler toprak nemi ve hava ölçümlerini MQTT ile gönderir. Karar motoru ürüne özel günlük nem profiline bakıp CRITICAL, IRRIGATE, NORMAL ya da STOP kararı verir ve pompaya komutu kendisi yayınlar.',
+    metric: '22 ürün, 30/60/90 gün tahmin',
+    points: [
+      '22 ürün için 30, 60 ve 90 günlük verim tahmini (LightGBM)',
+      'Sentinel-2 uydu indeksleri: NDVI, LAI, NDWI, NDRE',
+      'Eksik sensör verisini Open-Meteo hava verisiyle tamamlar',
+      'Her sabah çalışan tahmin hattı, sonuçlar SQLite’ta',
+      'Hasattan sonra modeli tarlaya göre yeniden ayarlar',
+      'FastAPI + HTMX panel: canlı izleme, tahmin geçmişi, tarla profili',
+    ],
+    stack: ['Python', 'MQTT', 'LightGBM', 'FastAPI', 'HTMX', 'SQLite'],
+    arch: `sensörler
    │  MQTT  farm/{tarla}/sensors
    ▼
 karar motoru ── CRITICAL / IRRIGATE / NORMAL / STOP
@@ -165,27 +255,23 @@ MQTT köprüsü ──▶ SQLite ◀── günlük tahmin (06:00 UTC)
                    │          ├─ Sentinel-2   NDVI, LAI, NDWI, NDRE
                    │          └─ LightGBM     30 / 60 / 90 gün verim
                    ▼
-           FastAPI + HTMX panel
-           /monitoring  /forecast  /history  /profile`,
-    },
-    'crop-yield-forecast': {
-      repo: 'crop-yield-forecast',
-      title: 'Türkiye geneli ürün verimi tahmini',
-      stack: 'Python, LightGBM, DuckDB, Pandas, Parquet, Jupyter',
-      readme: [
-        'WOFOST bitki simülasyonu ve gerçek hava verisiyle, Türkiye’nin her',
-        'bölgesi için ürün verimini tahmin eden makine öğrenmesi hattı.',
-        '',
-        '<b>Veri</b>   ~466 milyon saatlik satır, 5 GB parquet, 2014–2024',
-        '       22 ürün, 3 toprak suyu senaryosu (kuru / normal / ıslak)',
-        '',
-        '<b>Sonuçlar</b>',
-        '  tüm sezon verimi          R² <span class="ok">0.964</span>   RMSE 553 kg/ha',
-        '  erken tahmin (30–120 gün) R² 0.717 → 0.791, 90. günden sonra sabitleniyor',
-        '  hasat kaybı uyarısı       AUC <span class="ok">0.981</span>, daha ilk 30 günde',
-        '  +2°C iklim senaryosu      nohut −10%, kolza / mısır / pamuk +7–8%',
-      ],
-      arch: `5 GB parquet  (466M saatlik satır)
+           FastAPI + HTMX panel`,
+  },
+  {
+    id: 'crop-yield-forecast', vis: 'public', repo: 'crop-yield-forecast',
+    title: 'Türkiye geneli ürün verimi tahmini',
+    summary: 'WOFOST bitki simülasyonu ve gerçek hava verisiyle Türkiye’nin her bölgesi için ürün verimini tahmin eden makine öğrenmesi hattı. 5 GB’lık veri DuckDB ile RAM’e yüklenmeden sorgulanıyor.',
+    metric: '466M satır, R² 0.964',
+    facts: [
+      ['Veri', '~466 milyon saatlik satır, 5 GB parquet, 2014–2024'],
+      ['Kapsam', '22 ürün, 3 toprak suyu senaryosu'],
+      ['Tüm sezon verimi', 'R² 0.964, RMSE 553 kg/ha'],
+      ['Erken tahmin', 'R² 0.717 (30. gün) → 0.791 (120. gün)'],
+      ['Hasat kaybı uyarısı', 'AUC 0.981, ilk 30 günde'],
+      ['+2°C senaryosu', 'nohut −10%, kolza / mısır / pamuk +7–8%'],
+    ],
+    stack: ['Python', 'LightGBM', 'DuckDB', 'Pandas', 'Parquet'],
+    arch: `5 GB parquet  (466M saatlik satır)
    │  DuckDB: RAM'e yüklemeden sorgu
    ▼
 sezon özellikleri  (konum × ürün × yıl × senaryo)
@@ -197,24 +283,21 @@ LightGBM
    ├─ hasat kaybı uyarısı    AUC 0.981
    ├─ ürün önerisi           konum ve yıl başına en iyi ürün
    └─ +2°C iklim senaryosu   ürün ve bölge bazında etki`,
-    },
-    'pcse-dataset-creator': {
-      repo: 'PcseDatasetCreator',
-      title: 'Bitki simülasyonu veri seti üreticisi',
-      stack: 'Python, PCSE / WOFOST 7.2, Open-Meteo, SoilGrids, PyArrow',
-      readme: [
-        'Türkiye üzerinde ~71 noktalık bir ızgarada, 25’ten fazla ürün için',
-        'WOFOST 7.2 bitki büyüme simülasyonunu çalıştırır ve sonucu saatlik',
-        'hava ve toprak verisiyle birleştirip ML’ye hazır bir veri seti üretir.',
-        '',
-        '<b>Neler yapıyor</b>',
-        '  • Hava verisini toplu çeker: yılda yalnızca 2 API isteği',
-        '  • Her noktanın toprağını SoilGrids ile WOFOST toprak dosyasına eşler',
-        '  • Ürün × konum × yıl × su senaryosu kombinasyonlarını paralel koşar',
-        '  • Yarıda kesilirse kaldığı yerden devam eder',
-        '  • ~5 GB çıktıyı RAM’i şişirmeden akışla birleştirir',
-      ],
-      arch: `Open-Meteo (toplu)     SoilGrids        rakım
+  },
+  {
+    id: 'pcse-dataset-creator', vis: 'public', repo: 'PcseDatasetCreator',
+    title: 'Bitki simülasyonu veri seti üreticisi',
+    summary: 'Türkiye üzerinde ~71 noktalık bir ızgarada 25’ten fazla ürün için WOFOST 7.2 simülasyonunu çalıştırır, sonucu saatlik hava ve toprak verisiyle birleştirip ML’ye hazır bir veri seti üretir.',
+    metric: '~71 konum, 25+ ürün',
+    points: [
+      'Hava verisini toplu çeker: yılda yalnızca 2 API isteği',
+      'Her noktanın toprağını SoilGrids ile WOFOST toprak dosyasına eşler',
+      'Ürün × konum × yıl × su senaryosu kombinasyonlarını paralel koşar',
+      'Yarıda kesilirse kaldığı yerden devam eder',
+      '~5 GB çıktıyı RAM’i şişirmeden akışla birleştirir',
+    ],
+    stack: ['Python', 'PCSE / WOFOST', 'Open-Meteo', 'SoilGrids', 'PyArrow'],
+    arch: `Open-Meteo (toplu)     SoilGrids        rakım
       │                    │               │
       ▼                    ▼               ▼
  hava önbelleği    toprak eşleştirme (WOFOST dosyası)
@@ -222,32 +305,25 @@ LightGBM
                 ▼
  WOFOST 7.2   ürün × konum × yıl × su senaryosu
               4 paralel işçi, kaldığı yerden devam
-                │
                 ▼
  saatlik hava + günlük bitki durumu
-                │
                 ▼
  yıllık parquet ──▶ birleştirme (~5 GB, akışla)`,
-    },
-    'influencer-analytics': {
-      repo: 'Multi-Modal-Influencer-Analytics',
-      title: 'Instagram ve TikTok influencer analitiği',
-      stack: 'Python, Apify, scikit-learn, XGBoost, SHAP, TF-IDF, Streamlit',
-      readme: [
-        'Türk Instagram ve TikTok içerik üreticileri için veri toplama ve ML',
-        'platformu: veriyi kazır, özellik çıkarır, modeller eğitir ve markayla',
-        'doğru içerik üreticisini eşleştiren bir uygulama sunar.',
-        '',
-        '<b>Veri</b>   689 Instagram profili, 55.160 TikTok videosu',
-        '',
-        '<b>Modeller</b>',
-        '  • kalite skoru (0–100) ve K-Means segmentasyonu',
-        '  • Isolation Forest ile sahte etkileşim ve viral uç değer tespiti',
-        '  • XGBoost + SHAP ile etkileşim tahmini',
-        '  • sponsorlu gönderi sınıflandırması, fiyat tahmini',
-        '  • TF-IDF ile marka brifine göre içerik üreticisi eşleştirme',
-      ],
-      arch: `Apify (Instagram)        TikTok toplayıcı
+  },
+  {
+    id: 'influencer-analytics', vis: 'public', repo: 'Multi-Modal-Influencer-Analytics',
+    title: 'Instagram ve TikTok influencer analitiği',
+    summary: 'Türk Instagram ve TikTok içerik üreticileri için veri toplama ve ML platformu: veriyi kazır, özellik çıkarır, modeller eğitir ve markayla doğru içerik üreticisini eşleştiren bir uygulama sunar.',
+    metric: '689 profil, 55.160 video',
+    points: [
+      'Kalite skoru (0–100) ve K-Means segmentasyonu',
+      'Isolation Forest ile sahte etkileşim ve viral uç değer tespiti',
+      'XGBoost + SHAP ile etkileşim tahmini',
+      'Sponsorlu gönderi sınıflandırması ve fiyat tahmini',
+      'TF-IDF ile marka brifine göre içerik üreticisi eşleştirme',
+    ],
+    stack: ['Python', 'Apify', 'scikit-learn', 'XGBoost', 'SHAP', 'Streamlit'],
+    arch: `Apify (Instagram)        TikTok toplayıcı
        │                         │
        ▼                         ▼
    ham JSON                 SQLite + CSV
@@ -258,260 +334,202 @@ LightGBM
   ML: skor, K-Means, Isolation Forest,
       XGBoost + SHAP, sınıflandırma, TF-IDF
                    ▼
-         Streamlit uygulaması (4 sekme)
-  marka eşleştirme, kampanya planı, TikTok analitiği`,
-    },
+     Streamlit uygulaması (4 sekme)`,
   },
-  private: {
-    'iot-bulut-platformu': {
-      title: 'Endüstriyel makineler için bulut platformu',
-      stack: '.NET 10, MQTT (Mosquitto), PostgreSQL + TimescaleDB, Docker, Caddy',
-      readme: [
-        'Sahadaki makineler MQTT ile buluta bağlanır. Tek bir .NET servisi',
-        'telemetriyi ve olayları işler, zaman serisi veritabanına yazar,',
-        'telefona API, canlı ekran ve anlık bildirim sunar.',
-        '',
-        '  • cihaz başına kimlik doğrulama, TLS',
-        '  • QR ile makine sahiplenme, kurum ve servis teknisyeni yetkileri',
-        '  • uzaktan komut ve canlı izleme',
-      ],
-    },
-    'makine-izleme-pwa': {
-      title: 'Makineleri telefondan izleme ve kontrol',
-      stack: 'Angular, Ionic, TypeScript, PWA, Web Push',
-      readme: [
-        'Mağazaya gerek kalmadan telefona kurulan PWA’lar. Makinelerin',
-        'durumunu canlı gösterir, uzaktan komut gönderir, bildirim alır.',
-      ],
-    },
-    'makine-api': {
-      title: 'Makine yönetim API’si',
-      stack: 'Node.js, Express, REST, SQL',
-      readme: [
-        'Makine, kullanıcı ve yetki yönetimini sunan REST servisi.',
-        'Mobil uygulamaların arka ucu.',
-      ],
-    },
-    'icerik-yoneticisi': {
-      title: 'Çok dilli içerik yöneticisi',
-      stack: 'Angular, Tauri 2, Fastify, SQLite, Vitest, Playwright',
-      readme: [
-        'Teknik olmayan çalışanlar için site içerik editörü. Dil JSON’ları',
-        'formlara, çeviri ekranlarına ve görsel seçicilere dönüşür; değişiklik',
-        'incelenip siteye GitHub pull request olarak gider.',
-        '',
-        '  • tek Angular kod tabanından iki ürün: Tauri masaüstü + web',
-        '  • web sürümünde taslak → inceleme → PR akışı, kullanıcı hesapları',
-      ],
-    },
+  {
+    id: 'iot-bulut-platformu', vis: 'private',
+    title: 'Endüstriyel makineler için bulut platformu',
+    summary: 'Sahadaki makineler MQTT ile buluta bağlanır. Tek bir .NET servisi telemetriyi ve olayları işler, zaman serisi veritabanına yazar, telefona API, canlı ekran ve anlık bildirim sunar.',
+    points: ['Cihaz başına kimlik doğrulama ve TLS', 'QR ile makine sahiplenme, kurum ve servis teknisyeni yetkileri', 'Uzaktan komut ve canlı izleme'],
+    stack: ['.NET 10', 'MQTT', 'PostgreSQL', 'TimescaleDB', 'Docker'],
   },
-};
+  {
+    id: 'makine-izleme-pwa', vis: 'private',
+    title: 'Makineleri telefondan izleme ve kontrol',
+    summary: 'Mağazaya gerek kalmadan telefona kurulan PWA’lar. Makinelerin durumunu canlı gösterir, uzaktan komut gönderir, bildirim alır.',
+    stack: ['Angular', 'Ionic', 'TypeScript', 'Web Push'],
+  },
+  {
+    id: 'makine-api', vis: 'private',
+    title: 'Makine yönetim API’si',
+    summary: 'Makine, kullanıcı ve yetki yönetimini sunan REST servisi; mobil uygulamaların arka ucu.',
+    stack: ['Node.js', 'Express', 'REST', 'SQL'],
+  },
+  {
+    id: 'icerik-yoneticisi', vis: 'private',
+    title: 'Çok dilli içerik yöneticisi',
+    summary: 'Teknik olmayan çalışanlar için site içerik editörü. Dil JSON’ları formlara, çeviri ekranlarına ve görsel seçicilere dönüşür; değişiklik incelenip siteye GitHub pull request olarak gider.',
+    points: ['Tek Angular kod tabanından iki ürün: Tauri masaüstü + web', 'Web sürümünde taslak → inceleme → PR akışı'],
+    stack: ['Angular', 'Tauri', 'Fastify', 'SQLite', 'Playwright'],
+  },
+];
+const byId = Object.fromEntries(PROJECTS.map((p) => [p.id, p]));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const tags = (list) => `<ul class="tags">${list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
 
-// ---- terminal ------------------------------------------------------------
-const out = document.getElementById('out');
-const input = document.getElementById('in');
-const term = document.getElementById('term');
-const ps1El = document.getElementById('ps1');
-const started = Date.now();
-let cwd = [];               // [] = ~, ['public'], ['public', 'agriflow']
+// ---- home lists ------------------------------------------------------------
+document.getElementById('pubgrid').innerHTML = PROJECTS.filter((p) => p.vis === 'public').map((p) => `
+  <a class="card" href="#p/${p.id}">
+    <div class="top"><span class="badge pub">public</span><span>${esc(p.metric)}</span></div>
+    <h3>${esc(p.id)}</h3>
+    <p>${esc(p.title)}</p>
+    ${tags(p.stack)}
+    <span class="more">detaylar ve mimari →</span>
+  </a>`).join('');
+document.getElementById('privrows').innerHTML = PROJECTS.filter((p) => p.vis === 'private').map((p) => `
+  <li><a href="#p/${p.id}"><h3>${esc(p.id)}</h3><p>${esc(p.title)}</p><span class="badge priv">private</span></a></li>`).join('');
+
+// ---- project page, routed by #p/<id> -----------------------------------------
+const home = document.getElementById('home');
+const detail = document.getElementById('detail');
+const renderDetail = (p) => {
+  const pub = p.vis === 'public';
+  const same = PROJECTS.filter((x) => x.vis === p.vis);
+  const i = same.indexOf(p);
+  const prev = same[(i - 1 + same.length) % same.length], next = same[(i + 1) % same.length];
+  document.getElementById('dwrap').innerHTML = `
+    <a class="back" href="#${pub ? 'projeler' : 'is'}">← tüm projeler</a>
+    <div class="d-head">
+      <span class="badge ${pub ? 'pub' : 'priv'}">${p.vis}</span>
+      <h1>${esc(p.id)}</h1>
+      <p class="sub">${esc(p.title)}</p>
+    </div>
+    <div class="d-grid">
+      <div class="d-main">
+        <div><h2>## özet</h2><p>${esc(p.summary)}</p></div>
+        ${p.points ? `<div><h2>## neler yapıyor</h2><ul>${p.points.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : ''}
+        ${p.facts ? `<div><h2>## sonuçlar</h2><table class="facts">${p.facts.map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table></div>` : ''}
+        ${p.arch ? `<div><h2>## mimari</h2><pre class="arch">${esc(p.arch)}</pre></div>` : ''}
+      </div>
+      <aside class="d-side">
+        <h2>stack</h2>${tags(p.stack)}
+        ${pub
+          ? `<a class="btn btn--primary" href="${GH + p.repo}" target="_blank" rel="noopener">GitHub’da aç ↗</a>`
+          : `<p class="note">Şirket projesi: kaynak kodu ve mimari detayları paylaşılamıyor, burada yalnızca özet var.</p>`}
+      </aside>
+    </div>
+    <nav class="d-nav"><a href="#p/${prev.id}">← ${esc(prev.id)}</a><a href="#p/${next.id}">${esc(next.id)} →</a></nav>`;
+};
+const route = () => {
+  const m = location.hash.match(/^#p\/(.+)$/);
+  const p = m && byId[decodeURIComponent(m[1])];
+  if (p) {
+    renderDetail(p);
+    home.hidden = true; detail.hidden = false;
+    document.title = `${p.id}, Burak Şanlılar`;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  } else if (home.hidden) {
+    // coming back from a project page: show home, then jump to the anchor
+    home.hidden = false; detail.hidden = true;
+    document.title = 'Burak Şanlılar';
+    const target = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: 'instant' }); else window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+};
+window.addEventListener('hashchange', route);
+route();
+
+// ---- terminal ---------------------------------------------------------------
+const tout = document.getElementById('tout'), tin = document.getElementById('tin'), tbody = document.getElementById('tbody');
 const hist = []; let hi = 0;
-
-const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const run = (cmd, label = cmd) => `<button class="run" data-cmd="${esc(cmd)}">${esc(label)}</button>`;
-const chips = (...cmds) => `<div class="chips-out">${cmds.map((c) => run(...[].concat(c))).join('')}</div>`;
-const ps1 = () => `<span class="prompt">[<span class="u">burak@archlinux</span> <span class="p">${esc(cwd.length ? cwd[cwd.length - 1] : '~')}</span>]$</span>`;
-const print = (html, cls = '') => { const d = document.createElement('div'); d.className = 'new ' + cls; d.innerHTML = html; out.appendChild(d); };
-const scroll = () => { term.scrollTop = term.scrollHeight; };
+const ps = () => `<span class="ps">[<span class="u">burak@archlinux</span> <span class="p">~</span>]$</span>`;
+const print = (html) => { const d = document.createElement('div'); d.className = 'o'; d.innerHTML = html; tout.appendChild(d); };
+const go = (hash) => { location.hash = hash; };
 
-const find = (name) => {
-  for (const vis of ['public', 'private']) if (PROJECTS[vis][name]) return [vis, name];
-  return null;
-};
-// resolve a path against cwd to a cwd array, or null
-const resolve = (arg) => {
-  if (!arg || arg === '~') return [];
-  const parts = arg.startsWith('~') ? [] : [...cwd];
-  for (const seg of arg.replace(/^~\/?/, '').split('/').filter(Boolean)) {
-    if (seg === '.') continue;
-    if (seg === '..') { parts.pop(); continue; }
-    parts.push(seg);
-  }
-  if (parts.length === 0) return parts;
-  if (parts.length === 2 && PROJECTS[parts[0]] && PROJECTS[parts[0]][parts[1]]) return parts;
-  if (parts.length === 1 && PROJECTS[parts[0]]) return parts;
-  return find(parts[parts.length - 1]);   // `cd agriflow` works from anywhere
-};
-const here = () => (cwd.length === 2 ? PROJECTS[cwd[0]][cwd[1]] : null);
+const LOGO = `      /\\
+     /  \\
+    /\\   \\
+   /      \\
+  /   ,,   \\
+ /   |  |  -\\
+/_-''    ''-_\\`;
 
-const listRoot = (vis) => {
-  const rows = [];
-  for (const v of vis ? [vis] : ['public', 'private']) {
-    rows.push(v === 'public'
-      ? `<span class="h">public/</span>   <span class="dim"># herkese açık, kodu GitHub’da</span>`
-      : `<span class="h">private/</span>  <span class="dim"># şirket işleri, kodu gizli, yalnızca özet</span>`);
-    for (const [name, p] of Object.entries(PROJECTS[v])) {
-      const perm = v === 'private' ? 'drwx------' : 'drwxr-xr-x';
-      rows.push(`<span class="perm dim">  ${perm} </span>${run('cd ' + name, name)}<span class="pad">${' '.repeat(Math.max(1, 22 - name.length))}</span><span class="ttl dim">${esc(p.title)}</span>`);
-    }
-    rows.push('');
-  }
-  rows.push(`<span class="dim">Bir projeye tıkla ya da</span> cd &lt;proje&gt; <span class="dim">yaz.</span>`);
-  return rows.join('\n');
-};
-
-const readme = (vis, name) => {
-  const p = PROJECTS[vis][name];
-  const head = `<span class="h">${esc(name)}</span>  <span class="dim">— ${esc(p.title)}</span>\n<span class="dim">${'─'.repeat(Math.min(60, name.length + p.title.length + 5))}</span>`;
-  const body = head + '\n' + p.readme.join('\n') + `\n\n<span class="acc2">stack</span>  ${esc(p.stack)}`;
-  if (vis === 'public') return body + chips(['cat ARCH.md', 'mimari'], ['github', 'GitHub’da aç'], 'cd ..');
-  return body + `\n\n<span class="warn">Gizli proje: kaynak kodu ve mimari detayları paylaşılamıyor.</span>` + chips('cd ..', ['ls ~/public', 'açık projeler']);
-};
-
-const neofetch = () => {
-  const mins = Math.floor((Date.now() - started) / 60000);
-  const pub = Object.keys(PROJECTS.public).length, priv = Object.keys(PROJECTS.private).length;
-  const info = [
-    `<span class="acc"><b>burak</b></span>@<span class="acc"><b>archlinux</b></span>`,
-    '<span class="dim">─────────────────</span>',
-    `<span class="acc">OS</span>: Arch Linux x86_64`,
-    `<span class="acc">Host</span>: buraksanlilar.github.io`,
-    `<span class="acc">Kernel</span>: 6.17.4-arch1-1`,
-    `<span class="acc">Uptime</span>: ${mins} dk`,
-    `<span class="acc">Packages</span>: ${pub + priv} (${pub} public, ${priv} private)`,
-    `<span class="acc">Shell</span>: bash 5.3`,
-    `<span class="acc">Langs</span>: C#, TypeScript, Python`,
-    `<span class="acc">Mail</span>: <a href="mailto:${MAIL}">${MAIL}</a>`,
-    `<span class="acc">GitHub</span>: <a href="${GH}" target="_blank" rel="noopener">github.com/buraksanlilar</a>`,
-    '',
-    ['#0d1117', '#f47067', '#8ae234', '#e5c07b', '#1793d1', '#bc8cff', '#5fb4e6', '#c9d1d9'].map((c) => `<span class="swatch" style="background:${c}"></span>`).join(''),
-  ].join('\n');
-  return `<div class="fetch"><pre class="logo">${esc(document.getElementById('logo').content.textContent)}</pre><div>${info}</div></div>`;
-};
-
-const HELP = [
-  '<b>Komutlar</b>',
-  `  ${run('ls')}                  projeleri listele`,
-  `  cd &lt;proje&gt;          projeye gir ve README’yi oku`,
-  `  ${run('cat README.md')}       bulunduğun projenin özeti`,
-  `  ${run('cat ARCH.md')}         mimari (public projeler)`,
-  `  ${run('github')}              projenin GitHub sayfasını aç`,
-  `  ${run('cd ..')}               bir üst klasöre çık`,
-  `  ${run('neofetch')}            sistem bilgisi`,
-  `  ${run('contact')}             iletişim`,
-  `  ${run('history')}, ${run('pwd')}, ${run('clear')}, echo, date`,
-  '',
-  '<span class="dim">Tab ile tamamla, ↑ ↓ ile geçmişte gez, Ctrl+L ile temizle.</span>',
-].join('\n');
-
-const notFound = (cmd, f) => `<span class="err">${cmd}: ${esc(f)}: Böyle bir dosya ya da dizin yok</span>`;
 const COMMANDS = {
-  help: () => HELP,
-  ls: (args) => {
-    const target = args[0] ? resolve(args[0]) : cwd;
-    if (!target) return notFound('ls', args[0]);
-    if (target.length === 0) return listRoot();
-    if (target.length === 1) return listRoot(target[0]);
-    return target[0] === 'public' ? `${run('cat README.md', 'README.md')}  ${run('cat ARCH.md', 'ARCH.md')}` : run('cat README.md', 'README.md');
+  help: () => [
+    `${run('ls')}             projeleri listele`,
+    `cd &lt;proje&gt;     proje sayfasını aç`,
+    `${run('github')}         GitHub profili, ya da github &lt;proje&gt;`,
+    `${run('contact')}        iletişim bilgileri`,
+    `${run('neofetch')}       sistem bilgisi`,
+    `${run('clear')}          temizle`,
+    `<span class="t-dim">Tab ile tamamla, ↑ ↓ ile geçmiş</span>`,
+  ].join('\n'),
+  ls: () => ['public', 'private'].map((v) => [
+    `<span class="t-acc">${v}/</span>  <span class="t-dim"># ${v === 'public' ? 'kodu GitHub’da' : 'kod gizli, yalnızca özet'}</span>`,
+    ...PROJECTS.filter((p) => p.vis === v).map((p) => `  ${run('cd ' + p.id, p.id)}`),
+  ].join('\n')).join('\n\n') + `\n\n<span class="t-dim">Bir projeye tıkla ya da</span> cd &lt;proje&gt; <span class="t-dim">yaz.</span>`,
+  cd: ([arg]) => {
+    if (!arg || arg === '~' || arg === '..') { go('projeler'); return '<span class="t-dim">→ projeler</span>'; }
+    const p = byId[arg.replace(/^(~\/)?(public|private)\//, '').replace(/\/$/, '')];
+    if (!p) return `<span class="t-err">bash: cd: ${esc(arg)}: Böyle bir dizin yok</span>`;
+    go('p/' + p.id);
+    return `<span class="t-ok">→</span> ${esc(p.id)} açılıyor`;
   },
-  cd: (args) => {
-    const target = resolve(args[0] || '~');
-    if (!target) return `<span class="err">bash: cd: ${esc(args[0])}: Böyle bir dosya ya da dizin yok</span>`;
-    cwd = target;
-    if (cwd.length === 2) return readme(cwd[0], cwd[1]);
-    if (cwd.length === 1) return listRoot(cwd[0]);
-    return '';
-  },
-  cat: (args) => {
-    const f = args[0];
-    if (!f) return '<span class="err">cat: dosya adı eksik</span>';
-    const p = here();
-    if (!p) return notFound('cat', f) + `\n<span class="dim">Önce bir projeye gir:</span> ${run('ls')}`;
-    if (f === 'README.md') return readme(cwd[0], cwd[1]);
-    if (f === 'ARCH.md') {
-      if (cwd[0] === 'private') return `<span class="err">cat: ARCH.md: Permission denied</span>\n<span class="dim">Gizli projenin mimarisi paylaşılamıyor.</span>`;
-      return `<span class="h">${esc(cwd[1])}/ARCH.md</span>\n\n<pre class="acc2">${esc(p.arch)}</pre>` + chips(['cat README.md', 'README'], ['github', 'GitHub’da aç'], 'cd ..');
-    }
-    return notFound('cat', f);
-  },
-  github: (args) => {
-    const target = args[0] ? find(args[0]) : (cwd.length === 2 ? cwd : null);
-    if (args[0] && !target) return `<span class="err">github: '${esc(args[0])}' diye bir proje yok</span>`;
-    if (target && target[0] === 'private') return `<span class="err">fatal: repository '${esc(target[1])}' is private</span>\n<span class="dim">Bu proje şirkete ait, burada yalnızca özeti var.</span>`;
-    const url = target ? GH + PROJECTS.public[target[1]].repo : GH;
+  github: ([arg]) => {
+    const p = arg && byId[arg];
+    if (arg && !p) return `<span class="t-err">github: '${esc(arg)}' diye bir proje yok</span>`;
+    if (p && p.vis === 'private') return `<span class="t-err">fatal: repository '${esc(p.id)}' is private</span>`;
+    const url = p ? GH + p.repo : GH;
     window.open(url, '_blank', 'noopener');
-    return `<span class="ok">→</span> <a href="${url}" target="_blank" rel="noopener">${url}</a> <span class="dim">(yeni sekmede açıldı)</span>`;
+    return `<span class="t-ok">→</span> <a href="${url}" target="_blank" rel="noopener">${url}</a>`;
   },
-  neofetch,
+  contact: () => `<span class="t-acc">mail</span>    <a href="mailto:${MAIL}">${MAIL}</a>\n<span class="t-acc">github</span>  <a href="${GH}" target="_blank" rel="noopener">github.com/buraksanlilar</a>`,
+  neofetch: () => {
+    const pub = PROJECTS.filter((p) => p.vis === 'public').length;
+    return `<div class="fetch"><pre>${esc(LOGO)}</pre><div><span class="t-acc"><b>burak</b></span>@<span class="t-acc"><b>archlinux</b></span>
+<span class="t-acc">OS</span>       Arch Linux x86_64
+<span class="t-acc">Shell</span>    bash 5.3
+<span class="t-acc">Projeler</span> ${pub} public, ${PROJECTS.length - pub} private
+<span class="t-acc">Diller</span>   C#, TypeScript, Python</div></div>`;
+  },
   whoami: () => 'burak',
-  contact: () => [
-    `<span class="acc">mail</span>    <a href="mailto:${MAIL}">${MAIL}</a>`,
-    `<span class="acc">github</span>  <a href="${GH}" target="_blank" rel="noopener">github.com/buraksanlilar</a>`,
-  ].join('\n') + chips(['mail', 'e-posta gönder']),
-  mail: () => { location.href = 'mailto:' + MAIL; return `<span class="ok">→</span> ${MAIL}`; },
-  pwd: () => '/home/burak' + (cwd.length ? '/' + cwd.join('/') : ''),
-  history: () => hist.map((h, i) => `${String(i + 1).padStart(4)}  ${esc(h)}`).join('\n'),
-  echo: (args) => esc(args.join(' ')),
-  date: () => new Date().toString(),
-  clear: () => { out.innerHTML = ''; return null; },
-  sudo: () => '<span class="err">burak is not in the sudoers file. This incident will be reported.</span>',
-  pacman: () => ':: Synchronizing package databases...\n core is up to date\n extra is up to date\n<span class="dim">her şey güncel</span>',
-  exit: () => '<span class="dim">logout... şaka, buradan çıkış yok.</span> ' + run('contact', 'iletişime geç'),
-  vim: () => '<span class="dim">vim’den çıkamayabilirsin, açmayalım.</span>',
+  pwd: () => '/home/burak',
+  clear: () => { tout.innerHTML = ''; return null; },
+  sudo: () => '<span class="t-err">burak is not in the sudoers file. This incident will be reported.</span>',
+  pacman: () => ':: Synchronizing package databases...\n core is up to date\n extra is up to date',
+  exit: () => '<span class="t-dim">buradan çıkış yok :)</span>',
 };
-Object.assign(COMMANDS, { iletisim: COMMANDS.contact, open: COMMANDS.github, cls: COMMANDS.clear, dir: COMMANDS.ls });
+Object.assign(COMMANDS, { open: COMMANDS.cd, iletisim: COMMANDS.contact });
 
 const exec = (line) => {
   line = line.trim();
-  print(`${ps1()} ${esc(line)}`);
+  print(`${ps()} ${esc(line)}`);
   if (line) hist.push(line);
   hi = hist.length;
-  for (const part of line.split('&&').map((s) => s.trim()).filter(Boolean)) {
-    const [cmd, ...args] = part.split(/\s+/);
+  if (line) {
+    const [cmd, ...args] = line.split(/\s+/);
     const fn = COMMANDS[cmd.toLowerCase()];
-    if (!fn) { print(`<span class="err">bash: ${esc(cmd)}: komut bulunamadı</span>  <span class="dim">yardım için</span> ${run('help')}`, 'block'); break; }
-    const res = fn(args);
-    if (res) print(res, 'block');
+    const res = fn ? fn(args) : `<span class="t-err">bash: ${esc(cmd)}: komut bulunamadı</span>  ${run('help')}`;
+    if (res) print(res);
   }
-  ps1El.innerHTML = ps1();
-  scroll();
+  tbody.scrollTop = tbody.scrollHeight;
 };
 
-// tab completion: commands first, then paths
-const complete = () => {
-  const v = input.value; const parts = v.split(' ');
-  const last = parts[parts.length - 1];
-  let pool;
-  if (parts.length === 1) pool = Object.keys(COMMANDS);
-  else if (parts[0] === 'cat') pool = here() ? (cwd[0] === 'public' ? ['README.md', 'ARCH.md'] : ['README.md']) : [];
-  else pool = cwd.length === 0 ? ['public/', 'private/', ...Object.keys(PROJECTS.public), ...Object.keys(PROJECTS.private)]
-            : cwd.length === 1 ? [...Object.keys(PROJECTS[cwd[0]]), '..'] : ['..'];
-  const m = pool.filter((p) => p.startsWith(last));
-  if (m.length === 1) { parts[parts.length - 1] = m[0]; input.value = parts.join(' ') + (m[0].endsWith('/') ? '' : ' '); }
-  else if (m.length > 1) { print(`${ps1()} ${esc(v)}\n${m.map(esc).join('  ')}`); scroll(); }
-};
-
-input.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') { exec(input.value); input.value = ''; }
-  else if (e.key === 'Tab') { e.preventDefault(); complete(); }
-  else if (e.key === 'ArrowUp') { e.preventDefault(); if (hi > 0) input.value = hist[--hi]; }
-  else if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.min(hist.length, hi + 1); input.value = hist[hi] || ''; }
-  else if (e.key === 'l' && e.ctrlKey) { e.preventDefault(); out.innerHTML = ''; }
+tin.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { exec(tin.value); tin.value = ''; }
+  else if (e.key === 'Tab') {
+    e.preventDefault();
+    const parts = tin.value.split(' '), last = parts[parts.length - 1];
+    const pool = parts.length === 1 ? Object.keys(COMMANDS) : PROJECTS.map((p) => p.id);
+    const m = pool.filter((x) => x.startsWith(last));
+    if (m.length === 1) { parts[parts.length - 1] = m[0]; tin.value = parts.join(' ') + ' '; }
+    else if (m.length > 1) { print(m.join('  ')); tbody.scrollTop = tbody.scrollHeight; }
+  }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); if (hi > 0) tin.value = hist[--hi]; }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); hi = Math.min(hist.length, hi + 1); tin.value = hist[hi] || ''; }
 });
-document.addEventListener('click', (e) => {
+document.getElementById('term').addEventListener('click', (e) => {
   const b = e.target.closest('[data-cmd]');
-  if (b) { exec(b.dataset.cmd); if (matchMedia('(hover: hover)').matches) input.focus({ preventScroll: true }); return; }
-  if (e.target.closest('#term') && !getSelection().toString() && !e.target.closest('a')) input.focus({ preventScroll: true });
+  if (b) { exec(b.dataset.cmd); return; }
+  if (!e.target.closest('a') && !getSelection().toString()) tin.focus({ preventScroll: true });
 });
 
-const tick = () => { document.getElementById('clock').textContent = new Date().toLocaleString('tr-TR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); };
-tick(); setInterval(tick, 30000);
-
-// boot
-ps1El.innerHTML = ps1();
-print(neofetch(), 'block');
-print(`Hoş geldin. Burası gerçek bir terminal: komut yazabilir ya da altı çizili her şeye tıklayabilirsin.\nYardım için ${run('help')}.`, 'block');
+document.getElementById('tps').innerHTML = ps();
+print(COMMANDS.neofetch());
+print(`Projelerimi buradan da gezebilirsin: ${run('help')}`);
 exec('ls');
-if (matchMedia('(hover: hover)').matches) input.focus();
+tbody.scrollTop = 0;
 </script>
 </body>
 </html>
