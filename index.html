@@ -219,6 +219,10 @@ footer a { color: var(--fg-2); }
 
 [hidden] { display: none !important; }
 
+/* pixel trail: cells light up under the pointer and fade */
+#trail { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+body > :not(#trail):not(.nav) { position: relative; z-index: 1; }
+
 @media (max-width: 960px) {
   .hero { padding: 48px 0 56px; }
   .feat, .facts, .d-nav { grid-template-columns: minmax(0, 1fr); }
@@ -247,6 +251,7 @@ footer a { color: var(--fg-2); }
   </style>
 </head>
 <body>
+<canvas id="trail" aria-hidden="true"></canvas>
 
 <header class="nav">
   <div class="wrap">
@@ -773,6 +778,50 @@ document.getElementById('tps').innerHTML = ps();
   const line = print(`${ps()} <span class="typed"></span>`).querySelector('.typed');
   let i = 0; const word = 'neofetch';
   const t = setInterval(() => { line.textContent = word.slice(0, ++i); if (i === word.length) { clearInterval(t); setTimeout(boot, 220); } }, 70);
+})();
+
+// ---- pixel trail --------------------------------------------------------------
+// cells live in page coords so they scroll with the content; only lit cells are drawn
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.getElementById('trail'), cx = cv.getContext('2d');
+  const S = 22, R = 2, GLYPHS = '01<>/\\{}[]#$*+=';
+  const COLORS = ['23,147,209', '82,182,234', '90,209,168', '196,155,255'];
+  const lit = new Map(); // "col,row" -> { a, c, g }
+  let raf = 0, last = null;
+  const size = () => { const d = devicePixelRatio || 1; cv.width = innerWidth * d; cv.height = innerHeight * d; cx.setTransform(d, 0, 0, d, 0, 0); };
+  size(); addEventListener('resize', size);
+  const light = (x, y) => {
+    const col = Math.floor(x / S), row = Math.floor((y + scrollY) / S);
+    for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+      const d = Math.hypot(i, j); if (d > R + 0.3 || Math.random() < d / (R + 1.5)) continue;
+      const k = `${col + i},${row + j}`, a = 1 - d / (R + 1);
+      const c = lit.get(k);
+      if (c) c.a = Math.max(c.a, a);
+      else lit.set(k, { a, c: COLORS[Math.random() < 0.8 ? Math.floor(Math.random() * 2) : 2 + Math.floor(Math.random() * 2)], g: Math.random() < 0.25 ? GLYPHS[Math.floor(Math.random() * GLYPHS.length)] : '' });
+    }
+  };
+  const frame = () => {
+    cx.clearRect(0, 0, innerWidth, innerHeight);
+    cx.font = `600 ${S - 8}px "JetBrains Mono", monospace`; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    for (const [k, c] of lit) {
+      c.a -= 0.018;
+      if (c.a <= 0) { lit.delete(k); continue; }
+      const [col, row] = k.split(',').map(Number), x = col * S, y = row * S - scrollY;
+      if (y < -S || y > innerHeight) continue;
+      if (c.g) { cx.fillStyle = `rgba(${c.c},${c.a})`; cx.fillText(c.g, x + S / 2, y + S / 2 + 1); }
+      else { cx.fillStyle = `rgba(${c.c},${c.a * 0.55})`; cx.fillRect(x + 2, y + 2, S - 4, S - 4); }
+    }
+    raf = lit.size ? requestAnimationFrame(frame) : 0;
+  };
+  addEventListener('pointermove', (e) => {
+    // fill the gap between events so fast moves leave a continuous trail
+    const steps = last ? Math.max(1, Math.ceil(Math.hypot(e.clientX - last.x, e.clientY - last.y) / S)) : 1;
+    for (let s = 1; s <= steps; s++) light(last ? last.x + (e.clientX - last.x) * s / steps : e.clientX, last ? last.y + (e.clientY - last.y) * s / steps : e.clientY);
+    last = { x: e.clientX, y: e.clientY };
+    if (!raf) raf = requestAnimationFrame(frame);
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => { last = null; });
 })();
 </script>
 </body>
