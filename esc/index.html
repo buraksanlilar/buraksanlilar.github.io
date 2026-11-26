@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASCII Pink Rose</title>
+<style>html,body{margin:0;height:100%;background:#05050a;overflow:hidden;cursor:pointer}canvas{display:block}</style>
+<canvas id="c"></canvas>
+<script>
+// Teknik: gulu gizli kucuk canvas'a sekillerle ciz -> her pikseli renkli ASCII karaktere cevir.
+// Buyume: sap kivrilarak uzar, dugumlerden dikenler ve tirtikli gul yapraklari cikar,
+// yesil tomurcuk sisler, canak yapraklar geri kivrilir, tac yapraklar distan ice kat kat acilir.
+// Tikla: bastan. Debug: adres sonuna #t=9000 ekle.
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const off = document.createElement('canvas'), o = off.getContext('2d', { willReadFrequently: true });
+const CW = 4, CH = 7;
+const RAMP = '.:-=+*%#@';
+const GREEN = [110, 170, 80], PINK_IN = [225, 60, 125], PINK_OUT = [255, 196, 220];
+// gul katmanlari: dis -> ic  (adet, boy, en, baslangic acisi)
+const LAYERS = [[5, 1.0, 0.62, 0], [5, 0.84, 0.56, 0.63], [4, 0.66, 0.52, 1.2], [4, 0.48, 0.46, 0.35], [3, 0.32, 0.44, 0.95]];
+let W, H, cols, rows, u, stars = [], start = null;
+const T0 = +location.hash.slice(3) || 0;
+
+function mulberry32(a) { return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const clamp = x => Math.min(1, Math.max(0, x));
+const smooth = x => (x = clamp(x), x * x * (3 - 2 * x));
+const phase = (t, a, b) => smooth((t - a) / (b - a));
+const mixA = (c1, c2, k) => c1.map((v, i) => Math.round(v + (c2[i] - v) * k));
+const rgb = c => `rgb(${c})`;
+const wrap = a => { a %= 2 * Math.PI; return a > Math.PI ? a - 2 * Math.PI : a < -Math.PI ? a + 2 * Math.PI : a; };
+
+function setup() {
+  const dpr = devicePixelRatio || 1;
+  W = innerWidth; H = innerHeight; u = Math.min(W, H);
+  cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cols = Math.floor(W / CW); rows = Math.floor(H / CH);
+  off.width = cols; off.height = rows;
+  const r = mulberry32(5);
+  stars = Array.from({ length: 220 }, () => ({ x: Math.floor(r() * cols), y: Math.floor(r() * rows), p: r() * 6.28, s: 0.5 + r() * 2 }));
+}
+
+// --- sekiller ---------------------------------------------------------------
+function rosePetal(L, w) {               // yuvarlak, genis uclu gul yapragi
+  o.beginPath(); o.moveTo(0, 0);
+  o.bezierCurveTo(w * 0.9, -L * 0.15, w * 1.15, -L * 0.85, 0, -L);
+  o.bezierCurveTo(-w * 1.15, -L * 0.85, -w * 0.9, -L * 0.15, 0, 0);
+}
+function pointed(L, w) {                 // sivri canak yaprak
+  o.beginPath(); o.moveTo(0, 0);
+  o.quadraticCurveTo(w, -L * 0.4, 0, -L); o.quadraticCurveTo(-w, -L * 0.4, 0, 0);
+}
+function leaflet(len, light) {           // tirtikli kenarli yaprakcik
+  const a = len / 2, b = len * 0.3;
+  o.beginPath();
+  for (let k = 0; k <= 56; k++) { const th = k / 56 * 2 * Math.PI, rr = 1 + (k % 2 ? 0.08 : 0); o.lineTo(a + Math.cos(th) * a * rr, Math.sin(th) * b * rr); }
+  o.closePath(); o.fillStyle = light ? '#3f9a45' : '#2c7a33'; o.fill();
+  o.strokeStyle = '#8fd08a'; o.lineWidth = u * 0.003;
+  o.beginPath(); o.moveTo(0, 0); o.lineTo(len * 0.9, 0); o.stroke();
+}
+function roseLeaf(size, g) {             // bilesik gul yapragi: sap + 2 cift + uc yaprakcik
+  o.strokeStyle = '#2f7d36'; o.lineWidth = u * 0.005;
+  o.beginPath(); o.moveTo(0, 0); o.lineTo(size, 0); o.stroke();
+  for (const p of [0.4, 0.72]) for (const s of [-1, 1]) {
+    const lg = clamp(g * 1.6 - p * 0.6);
+    if (lg <= 0) continue;
+    o.save(); o.translate(size * p, 0); o.rotate(s * 0.95); leaflet(size * 0.36 * lg, s < 0); o.restore();
+  }
+  o.save(); o.translate(size, 0); leaflet(size * 0.42 * g, true); o.restore();
+}
+
+// --- sahne ------------------------------------------------------------------
+function scene(t) {
+  const grow  = phase(t, 0, 3200);       // sap
+  const bud   = phase(t, 2200, 4200);    // tomurcuk sisler
+  const sepal = phase(t, 3800, 5200);    // canak yapraklar geri kivrilir
+  const open  = phase(t, 4400, 9500);    // tac yapraklar acilir
+  const color = phase(t, 3600, 6500);    // yesil -> pembe
+  const sway = Math.sin(t / 1700) * u * 0.015 * grow;
+
+  const bx = W / 2, by = H * 0.99, topY = H * 0.36;
+  const P = s => [bx + Math.sin(s * Math.PI * 1.3) * u * 0.035 + sway * s * s, by + (topY - by) * s];
+
+  // sap: kivrimli, asagidan yukari buyur
+  o.lineCap = 'round'; o.lineJoin = 'round';
+  o.strokeStyle = '#3b8f3f'; o.lineWidth = u * 0.013;
+  o.beginPath();
+  for (let s = 0; s <= grow + 1e-6; s += 0.01) o.lineTo(...P(Math.min(s, grow)));
+  o.stroke();
+
+  // dikenler
+  for (const [s, side] of [[0.12, 1], [0.22, -1], [0.38, 1], [0.55, -1], [0.66, 1], [0.8, -1]]) {
+    const g = clamp((grow - s) / 0.08); if (!g) continue;
+    const [x, y] = P(s), k = u * 0.022 * g;
+    o.fillStyle = '#7a3b2e'; o.beginPath();
+    o.moveTo(x, y + k * 0.6); o.lineTo(x + side * k * 1.1, y - k * 0.5); o.lineTo(x, y - k * 0.4); o.fill();
+  }
+
+  // yapraklar: sap dugumu gecince acilir
+  for (const [s, side, size] of [[0.3, -1, 0.16], [0.48, 1, 0.15], [0.66, -1, 0.12]]) {
+    const g = smooth((grow - s) / 0.3); if (!g) continue;
+    const [x, y] = P(s);
+    o.save(); o.translate(x, y);
+    o.rotate((side > 0 ? -0.55 : -(Math.PI - 0.55)) + Math.sin(t / 1500 + s * 9) * 0.05);
+    if (side < 0) o.scale(1, -1);
+    roseLeaf(u * size * g, g); o.restore();
+  }
+  if (!bud) return;
+
+  // cicek basi: sapin ucunda, sapin egimine gore
+  const [hx, hy] = P(grow), [px, py] = P(Math.max(0, grow - 0.02));
+  const R = u * (0.06 + 0.05 * bud + 0.09 * open);
+  o.save(); o.translate(hx, hy); o.rotate(Math.atan2(hx - px, py - hy) * 0.8);
+  o.scale(1, 1 - 0.22 * open);           // acildikca hafif ustten bakis
+
+  const drawSepals = () => {
+    for (let i = 0; i < 5; i++) {
+      const a = wrap(i * 2 * Math.PI / 5 + 0.3) * (0.15 + 0.85 * sepal) + (sepal > 0.6 ? Math.sign(wrap(i * 1.256 + 0.3)) * 0.4 * (sepal - 0.6) : 0);
+      o.save(); o.rotate(a); pointed(R * (0.75 + 0.2 * sepal), R * 0.16); o.fillStyle = '#4a9a3e'; o.fill(); o.restore();
+    }
+  };
+  if (sepal > 0.5) drawSepals();         // acilinca arkada kalir
+
+  LAYERS.forEach(([n, Lk, wk, rot], j) => {
+    const oj = phase(open, j * 0.12, 0.5 + j * 0.11);          // distaki katman once acilir
+    const shade = j / (LAYERS.length - 1);                     // icerisi daha koyu
+    const L = R * Lk * (0.62 + 0.38 * oj), w = R * wk * (0.45 + 0.55 * oj);
+    const base = mixA(GREEN, mixA(PINK_IN, [150, 20, 70], shade * 0.6), color);
+    const tip  = mixA([170, 210, 120], mixA(PINK_OUT, [235, 110, 150], shade * 0.7), color);
+    for (let i = 0; i < n; i++) {
+      const a = wrap(rot + i * 2 * Math.PI / n) * (0.12 + 0.88 * oj);
+      o.save(); o.rotate(a);
+      const g = o.createLinearGradient(0, 0, 0, -L);
+      g.addColorStop(0, rgb(base)); g.addColorStop(1, rgb(tip));
+      rosePetal(L, w); o.fillStyle = g; o.fill();
+      o.strokeStyle = `rgba(120,10,50,${0.25 + 0.4 * color})`; o.lineWidth = u * 0.004; o.stroke();   // kat cizgisi
+      o.restore();
+    }
+  });
+
+  if (open > 0.4) {                      // ortadaki sarmal: gulun imzasi
+    o.strokeStyle = `rgba(105,5,40,${(open - 0.4) * 1.6})`; o.lineWidth = u * 0.005;
+    o.beginPath();
+    for (let th = 0; th < 5 * Math.PI; th += 0.1) { const r = R * 0.2 * th / (5 * Math.PI); o.lineTo(Math.cos(th) * r, Math.sin(th) * r - R * 0.05); }
+    o.stroke();
+  }
+  if (sepal <= 0.5) drawSepals();        // tomurcukta canaklar sarar
+  o.restore();
+}
+
+function frame(now) {
+  if (start === null) start = now;
+  const t = location.hash.startsWith("#f=") ? T0 : now - start + T0;   // #f=5000: o anda dondur (video karesi icin)
+  o.setTransform(1, 0, 0, 1, 0, 0); o.clearRect(0, 0, cols, rows);
+  o.setTransform(1 / CW, 0, 0, 1 / CH, 0, 0);
+  scene(t);
+  const d = o.getImageData(0, 0, cols, rows).data;
+
+  ctx.fillStyle = '#05050a'; ctx.fillRect(0, 0, W, H);
+  ctx.font = `bold ${CH}px ui-monospace, Consolas, monospace`; ctx.textBaseline = 'top';
+  for (const s of stars) {
+    if (d[(s.y * cols + s.x) * 4 + 3] > 20) continue;
+    const b = 0.5 + 0.5 * Math.sin(t / 1000 * s.s + s.p);
+    ctx.fillStyle = `rgba(220,220,255,${b * 0.8})`;
+    ctx.fillText(b > 0.92 ? '*' : '.', s.x * CW, s.y * CH);
+  }
+  for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+    const i = (y * cols + x) * 4, a = d[i + 3];
+    if (a < 25) continue;
+    const r = d[i], g = d[i + 1], b = d[i + 2];
+    const lum = Math.sqrt((0.299 * r + 0.587 * g + 0.114 * b) / 255 * (a / 255));
+    let ch = RAMP[Math.min(RAMP.length - 1, Math.floor(lum * RAMP.length))];
+    if (Math.random() < 0.004) ch = RAMP[Math.floor(Math.random() * RAMP.length)];
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.fillText(ch, x * CW, y * CH);
+  }
+  requestAnimationFrame(frame);
+}
+
+addEventListener('resize', setup);
+addEventListener('click', () => start = null);
+setup(); requestAnimationFrame(frame);
+</script>
+</html>
